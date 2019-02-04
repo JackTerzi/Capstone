@@ -8,12 +8,14 @@ public class EnemyController : MonoBehaviour {
     public SpriteRenderer spr;
     Color startColor;
     public float chargeSpeed;
+
+    public bool canShoot;
     float chargeTimer;
     // Use this for initialization
     void Start () {
 
     
-        enemy  = new Enemy(this.GetComponent<Rigidbody2D>(), 1, 1);
+        enemy  = new Enemy(this.GetComponent<Rigidbody2D>(), 1, 1, canShoot);
         spr = gameObject.GetComponent<SpriteRenderer>();
         startColor = spr.color;
 	}
