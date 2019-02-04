@@ -43,6 +43,9 @@ public class EnemyController : MonoBehaviour {
         thisBullet.transform.right = gameObject.transform.right;
         spr.color = startColor;
     }
+    void Hit(){
+        Destroy(gameObject);
+    }
 
     private void OnDestroy()
     {

@@ -16,7 +16,7 @@ public class FireScript : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D col){
 
-        Destroy(col.gameObject);
+        col.SendMessage("Hit", SendMessageOptions.DontRequireReceiver);
 
     }
 }
