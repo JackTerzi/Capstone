@@ -9,7 +9,8 @@ public class Tutorial : MonoBehaviour {
 				 popUp1DelayTime,
 				 popUp2DelayTime;
 	
-	float timer;
+	float timer,
+		  frameCount;
 
 	public GameObject playerPrefab,
 					  enemyBasic,
@@ -17,19 +18,23 @@ public class Tutorial : MonoBehaviour {
 					  popUp2;
 
 	GameObject player;
-	List<GameObject> activeEnemies = new List<GameObject>();
+
+	//public List<GameObject> activeEnemies = new List<GameObject>();
 
 	bool spawnedFirstEnemy,
 		 finishedPopUp1,
 		 finishedPopUp2,
 		 playerSwiped,
-		 movingFastEnough;
+		 movingFastEnough,
+		 turnedOnPopUp1,
+		 allEnemiesDead;
 
 	public Vector2 playerStartPos,
 				   enemy1StartPos,
 				   enemy2StartPos;
 
-	Vector2 playerPos;
+	Vector2 playerPos,
+			startPos;
 
 	Movement playerMovement;
 
@@ -48,7 +53,7 @@ public class Tutorial : MonoBehaviour {
 
 
 	void Update(){
-		//playerSwiped = // check from Movement script
+		playerSwiped = Manager.me.playerSwiped;
 		
 		if (!finishedPopUp1 || !finishedPopUp2){
 			timer += Time.deltaTime;
@@ -56,27 +61,42 @@ public class Tutorial : MonoBehaviour {
 			if (!finishedPopUp1){
 				if (timer > firstEnemySpawnDelay && !spawnedFirstEnemy){
 					GameObject newEnemy = (GameObject) Instantiate(enemyBasic, enemy1StartPos, Quaternion.identity);
-					activeEnemies.Add(newEnemy);
+					//activeEnemies.Add(newEnemy);
 					spawnedFirstEnemy = true;
 					timer = 0f;
 				}
-				else if (timer > popUp1DelayTime && !popUp1.activeSelf && spawnedFirstEnemy){
+				else if (timer > popUp1DelayTime && !popUp1.activeSelf && spawnedFirstEnemy && !turnedOnPopUp1){
 					popUp1.SetActive(true);
 					timer = 0f;
+					turnedOnPopUp1 = true;
 				}
 				else if(popUp1.activeSelf && playerSwiped){
 					finishedPopUp1 = true;
+					timer = 0f;
+					popUp1.SetActive(false);
+				}
+				else{
+					//timer = 0f;
 				}
 			}
-
+				
 			else if(!finishedPopUp2){
 				if (timer > popUp2DelayTime && !popUp2.activeSelf){
 					popUp2.SetActive(true);
 				}
 				else if (popUp2.activeSelf && playerSwiped){
+					Debug.Log("turned off");
 					popUp2.SetActive(false);
 					finishedPopUp2 = true;
 				}
+			}
+			
+		}
+
+		if (finishedPopUp1 && Manager.me.score == 1){
+			allEnemiesDead = (GameObject.FindGameObjectWithTag("Enemy") == null);
+			if (allEnemiesDead){
+				GameObject newEnemy = (GameObject) Instantiate(enemyBasic, enemy2StartPos, Quaternion.identity);
 			}
 		}
 
@@ -91,4 +111,5 @@ public class Tutorial : MonoBehaviour {
 		}
 		
 	}
+
 }
