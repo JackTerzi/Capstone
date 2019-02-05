@@ -11,7 +11,8 @@ public class Manager : MonoBehaviour {
     public int score;
     public bool gameOver,
                 shouldShoot,
-                shouldDash;
+                shouldDash,
+                playerSwiped;
     public Text scoreText;
 
   

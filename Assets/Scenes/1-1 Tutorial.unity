@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 37953142}
   - component: {fileID: 37953144}
   - component: {fileID: 37953143}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: porch (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -223,7 +223,7 @@ GameObject:
   m_Component:
   - component: {fileID: 315433882}
   - component: {fileID: 315433883}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: porch floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -329,7 +329,7 @@ GameObject:
   - component: {fileID: 446110386}
   - component: {fileID: 446110388}
   - component: {fileID: 446110387}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: bot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -430,7 +430,7 @@ GameObject:
   - component: {fileID: 446981311}
   - component: {fileID: 446981313}
   - component: {fileID: 446981312}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: top
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -531,7 +531,7 @@ GameObject:
   - component: {fileID: 557329030}
   - component: {fileID: 557329032}
   - component: {fileID: 557329031}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: house wall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -782,7 +782,7 @@ GameObject:
   - component: {fileID: 713781520}
   - component: {fileID: 713781522}
   - component: {fileID: 713781521}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -960,7 +960,7 @@ GameObject:
   - component: {fileID: 835327030}
   - component: {fileID: 835327032}
   - component: {fileID: 835327031}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: porch (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1061,7 +1061,7 @@ GameObject:
   - component: {fileID: 999435061}
   - component: {fileID: 999435063}
   - component: {fileID: 999435062}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: house wall (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1162,7 +1162,7 @@ GameObject:
   - component: {fileID: 1085471020}
   - component: {fileID: 1085471022}
   - component: {fileID: 1085471021}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: fence right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1315,7 +1315,7 @@ GameObject:
   - component: {fileID: 1224556620}
   - component: {fileID: 1224556621}
   - component: {fileID: 1224556622}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: fence left
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1416,7 +1416,7 @@ GameObject:
   - component: {fileID: 1247819903}
   - component: {fileID: 1247819905}
   - component: {fileID: 1247819904}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: porch
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1556,6 +1556,16 @@ Prefab:
       propertyPath: maxEnemOnScreen
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114267389019573616, guid: ba9ef83a477a94ee8aae8460f126c813,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114685854150887646, guid: ba9ef83a477a94ee8aae8460f126c813,
+        type: 2}
+      propertyPath: shouldShoot
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ba9ef83a477a94ee8aae8460f126c813, type: 2}
   m_IsPrefabAsset: 0
@@ -1569,7 +1579,7 @@ GameObject:
   - component: {fileID: 1480589882}
   - component: {fileID: 1480589884}
   - component: {fileID: 1480589883}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: right
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1776,7 +1786,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1824256057}
   - component: {fileID: 1824256058}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1852,7 +1862,7 @@ GameObject:
   - component: {fileID: 2033017352}
   - component: {fileID: 2033017354}
   - component: {fileID: 2033017353}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: left
   m_TagString: Untagged
   m_Icon: {fileID: 0}

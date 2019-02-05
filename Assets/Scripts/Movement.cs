@@ -6,12 +6,11 @@ using UnityEngine.SceneManagement;
 public class Movement : MonoBehaviour
 {
 
-    Animator movement;
+    Animator movementAnimator;
 	Rigidbody2D rb;
 
 	Vector2 startPos,
 		moveDirection,
-		endpos,
 		previousMoveDirection;
 
     int frameCount;
@@ -31,19 +30,20 @@ public class Movement : MonoBehaviour
         walkAnimSpeed,
         numBullets,
         shotgunOffset;
-    public GameObject bullet;
-    public GameObject fire;
 
-	// Use this for initialization
+    public GameObject bullet,
+                      fire;
+
+
 	void Start ()
 	{
 		rb = GetComponent<Rigidbody2D> ();
-        movement = GetComponent<Animator>();
+        movementAnimator = GetComponent<Animator>();
 		previousMoveDirection = Vector2.zero;
 
 	}
 	
-	// Update is called once per frame
+
 	void Update ()
 	{
 		if (Input.touchCount > 0) {
@@ -61,7 +61,6 @@ public class Movement : MonoBehaviour
                     if (frameCount > 10)
                     {
                         lookAngle = Geo.ToAng(startPos, touch.position);
-                        Shoot();
                     }
                     break;
 			
@@ -75,7 +74,6 @@ public class Movement : MonoBehaviour
                     }
                     if(frameCount > 10){
                         lookAngle = Geo.ToAng(startPos, touch.position);
-                        Shoot();
                     }
 
 				break;
@@ -94,7 +92,6 @@ public class Movement : MonoBehaviour
 
 			}
 
-			//Debug.Log (message);
 		}
 	}
 
@@ -108,9 +105,11 @@ public class Movement : MonoBehaviour
         else
             drag = dragMagnitude;
 		if (addVelocity && speed < maxSpeed) {
+            Manager.me.playerSwiped = true;
 			speed += addedSpeed;
 			addVelocity = false;
 		} else {
+            Manager.me.playerSwiped = false;
 			speed -= drag;
 
 		}
@@ -120,8 +119,7 @@ public class Movement : MonoBehaviour
 
         AnimCheck();
         rb.MoveRotation(Mathf.LerpAngle(Geo.ToAng(transform.right), lookAngle, .35f));
-       // rb.MoveRotation ( Geo.ToAng(transform.right) - ((Geo.ToAng(transform.right)-lookAngle)*5)*Time.fixedDeltaTime);
-        rb.MovePosition ((Vector2)transform.position  + (Vector2) transform.right *speed * Time.fixedDeltaTime);
+        rb.MovePosition ((Vector2)transform.position + (Vector2) transform.right * speed * Time.fixedDeltaTime);
 	}
 
 
@@ -129,16 +127,16 @@ public class Movement : MonoBehaviour
         if (speed <= 0)
         {
             speed = 0;
-            movement.SetBool("isIdle", true);
+            movementAnimator.SetBool("isIdle", true);
         }
         else
         {
-            movement.SetBool("isIdle", false);
+            movementAnimator.SetBool("isIdle", false);
         }
 
         if (speed > runAnimSpeed)
         {
-            movement.SetBool("isRunning", true);
+            movementAnimator.SetBool("isRunning", true);
             if (Manager.me.shouldDash)
                 fire.SetActive(true);
         }
@@ -146,17 +144,17 @@ public class Movement : MonoBehaviour
         {
             if(Manager.me.shouldDash)
                 fire.SetActive(false);
-            movement.SetBool("isRunning", false);
-            movement.SetBool("isWalking", true);
+            movementAnimator.SetBool("isRunning", false);
+            movementAnimator.SetBool("isWalking", true);
 
         }
         else
         {   
             if (Manager.me.shouldDash)
                 fire.SetActive(false);
-            movement.SetBool("isWalking", false);
-            movement.SetBool("isRunning", false);
-            movement.SetBool("isIdle", true);
+            movementAnimator.SetBool("isWalking", false);
+            movementAnimator.SetBool("isRunning", false);
+            movementAnimator.SetBool("isIdle", true);
 
         }
     }
@@ -164,43 +162,27 @@ public class Movement : MonoBehaviour
 
 
     void Shoot(){
-        //  GameObject myBullet = Instantiate(bullet,transform.position,Quaternion.identity);
 
-        //  myBullet.transform.right = gameObject.transform.right;
-        //  myBullet.transform.parent = gameObject.transform;
         if (Manager.me.shouldShoot)
         {
             addVelocity = true;
 
             float bulletSpawnAng,
-             bulletSpawnPos;
-            movement.SetBool("isShooting", true);
+            bulletSpawnPos;
+            movementAnimator.SetBool("isShooting", true);
             for (int i = 0; i < numBullets; i++)
             {
-                //bullSpawnAng [i] = (i / numBullets) * 30*((-1)^i);
-                //bullSpawnPos [i] = (i / numBullets) * 50f*((-1)^i);
+
                 float power = Mathf.Pow(-1, i);
                 bulletSpawnAng = (i / numBullets) * 20f * power;
                 bulletSpawnPos = (i / numBullets) * .3f * power;
                 Instantiate(bullet, transform.position + gameObject.transform.right.normalized * shotgunOffset + Geo.PerpVect(gameObject.transform.right, true) * bulletSpawnPos, Quaternion.Euler(0, 0, Geo.ToAng(gameObject.transform.right) - bulletSpawnAng));
             }
-            // SoundManager.me.Play(shootingSound);
-            // ManagerScript.me.bullets -= 1;
-            // ManagerScript.me.screenShakeTimer = shootShaking;
-            // bulletVisHolder.SendMessage("Shot", null, SendMessageOptions.DontRequireReceiver);
-            movement.SetBool("isShooting", false);
 
-            //if (ManagerScript.me.bullets <= 0)
-            //{
-            //    reloading = true;
-            //    SoundManager.me.Play(reloadingSound);
-            //    shootDelay = setShootDelay;
-
-            //}
+            movementAnimator.SetBool("isShooting", false);
         }
     
      }
-
 
 
     private void OnDestroy()
@@ -209,7 +191,4 @@ public class Movement : MonoBehaviour
     }
 
 
-
-
-  
 }
