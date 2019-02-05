@@ -1263,7 +1263,7 @@ GameObject:
   - component: {fileID: 1178689515}
   - component: {fileID: 1178689514}
   m_Layer: 0
-  m_Name: Tutorial
+  m_Name: Level
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1286,12 +1286,12 @@ MonoBehaviour:
   popUp2DelayTime: 1
   playerPrefab: {fileID: 1230577482628158, guid: 7fca2dc8f19af461c815280260dbdc2e,
     type: 2}
-  enemyBasic: {fileID: 1399737481222844, guid: c2a5a24f391134a97a7a31e57da46767, type: 2}
+  enemyBasic: {fileID: 1183282200059582, guid: 5ecf23924f3f84a9a8e587b52e327543, type: 2}
   popUp1: {fileID: 1508082252}
   popUp2: {fileID: 588608241}
   playerStartPos: {x: 0, y: -4.2}
-  enemy1StartPos: {x: 1.5, y: -0.5}
-  enemy2StartPos: {x: -1.5, y: 3}
+  enemy1StartPos: {x: 0, y: 3}
+  enemy2StartPos: {x: -1.5, y: -1}
 --- !u!4 &1178689515
 Transform:
   m_ObjectHideFlags: 0
