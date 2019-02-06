@@ -101,8 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyBullet: {fileID: 1099632510559916, guid: 39c1e70b6f9da4d3aa7da6f3be3ffc22,
     type: 2}
-  spr: {fileID: 0}
-  chargeSpeed: 1
+  chargeSpeed: 0.5
   canShoot: 0
 --- !u!212 &212446800188815944
 SpriteRenderer:

@@ -35,8 +35,7 @@ public class Movement : MonoBehaviour
                       fire;
 
 
-	void Start ()
-	{
+	void Start (){
 		rb = GetComponent<Rigidbody2D> ();
         movementAnimator = GetComponent<Animator>();
 		previousMoveDirection = Vector2.zero;
@@ -44,8 +43,7 @@ public class Movement : MonoBehaviour
 	}
 	
 
-	void Update ()
-	{
+	void Update (){
 		if (Input.touchCount > 0) {
             Touch touch = Input.GetTouch (0);
             frameCount++;                       //increment frame 
@@ -97,15 +95,14 @@ public class Movement : MonoBehaviour
 
 
 
-	void FixedUpdate ()
-	{
+	void FixedUpdate (){
         float drag;
         if (speed > 1)
             drag = dragMagnitude * (speed) * Time.fixedDeltaTime;
         else
             drag = dragMagnitude;
 		if (addVelocity && speed < maxSpeed) {
-            Manager.me.playerSwiped = true;
+            //Manager.me.playerSwiped = true;
 			speed += addedSpeed;
 			addVelocity = false;
 		} else {
@@ -137,12 +134,12 @@ public class Movement : MonoBehaviour
         if (speed > runAnimSpeed)
         {
             movementAnimator.SetBool("isRunning", true);
-            if (Manager.me.shouldDash)
+            if (Manager.me.playerShouldDash)
                 fire.SetActive(true);
         }
         else if (speed > walkAnimSpeed)
         {
-            if(Manager.me.shouldDash)
+            if(Manager.me.playerShouldDash)
                 fire.SetActive(false);
             movementAnimator.SetBool("isRunning", false);
             movementAnimator.SetBool("isWalking", true);
@@ -150,7 +147,7 @@ public class Movement : MonoBehaviour
         }
         else
         {   
-            if (Manager.me.shouldDash)
+            if (Manager.me.playerShouldDash)
                 fire.SetActive(false);
             movementAnimator.SetBool("isWalking", false);
             movementAnimator.SetBool("isRunning", false);
@@ -163,15 +160,13 @@ public class Movement : MonoBehaviour
 
     void Shoot(){
 
-        if (Manager.me.shouldShoot)
-        {
+        if (Manager.me.playerShouldShoot){
             addVelocity = true;
 
             float bulletSpawnAng,
             bulletSpawnPos;
             movementAnimator.SetBool("isShooting", true);
-            for (int i = 0; i < numBullets; i++)
-            {
+            for (int i = 0; i < numBullets; i++){
 
                 float power = Mathf.Pow(-1, i);
                 bulletSpawnAng = (i / numBullets) * 20f * power;
@@ -185,9 +180,8 @@ public class Movement : MonoBehaviour
      }
 
 
-    private void OnDestroy()
-    {
-        Manager.me.gameOver = true;
+    void OnDestroy(){
+        Manager.me.isGameOver = true;
     }
 
 

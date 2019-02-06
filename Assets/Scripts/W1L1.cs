@@ -6,27 +6,25 @@ public class W1L1 : MonoBehaviour {
 
 	public float minimumBashSpeed,
 				 firstEnemySpawnDelay,
-				 popUp1DelayTime,
-				 popUp2DelayTime;
+				 popUp1DelayTime, // the time it takes for the first enemy to completely spawn
+				 popUp1AnimTime,
+				 popUp2DelayTime,
+				 popUp2AnimTime,
+				 timeBeforePopUp2Reappears;
 	
-	float timer,
-		  frameCount;
+	float timer;
 
 	public GameObject playerPrefab,
 					  enemyBasic,
 					  popUp1,
-					  popUp2;
+					  popUp2,
+					  greyOut;
 
 	GameObject player;
 
-	//public List<GameObject> activeEnemies = new List<GameObject>();
-
-	bool spawnedFirstEnemy,
-		 finishedPopUp1,
-		 finishedPopUp2,
-		 playerSwiped,
-		 movingFastEnough,
-		 turnedOnPopUp1,
+	bool finishedPart1,
+		 finishedPart2,
+		 alreadyShowedPopUp2,
 		 allEnemiesDead,
 		 finishedTutorial;
 
@@ -34,12 +32,7 @@ public class W1L1 : MonoBehaviour {
 				   enemy1StartPos,
 				   enemy2StartPos;
 
-	Vector2 playerPos,
-			startPos;
-
 	Movement playerMovement;
-
-	//runAnimSpeed
 
 
 	void Awake () {
@@ -53,9 +46,15 @@ public class W1L1 : MonoBehaviour {
 	}
 
 
+	void Start(){
+		GameObject newEnemy = (GameObject) Instantiate(enemyBasic, enemy1StartPos, Quaternion.identity);
+		Manager.me.playerShouldDash = false;
+	}
+
+
 	void Update(){
-		playerSwiped = Manager.me.playerSwiped;
-		
+		timer+= Time.unscaledDeltaTime;
+
 		if (!finishedTutorial){
 			Tutorial();
 		}
@@ -66,63 +65,88 @@ public class W1L1 : MonoBehaviour {
 	
 
 	void FixedUpdate () {
-		if (player != null){
-			playerPos = player.transform.position;
-		}
+		//if (player != null){
+			//playerPos = player.transform.position;
+		//}
 		
 	}
 
 
 	void Tutorial(){
-			if (!finishedPopUp1 || !finishedPopUp2){
-				timer += Time.deltaTime;
-			
-				if (!finishedPopUp1){
-					if (timer > firstEnemySpawnDelay && !spawnedFirstEnemy){
-						GameObject newEnemy = (GameObject) Instantiate(enemyBasic, enemy1StartPos, Quaternion.identity);
-						//activeEnemies.Add(newEnemy);
-						spawnedFirstEnemy = true;
-						timer = 0f;
-					}
-					else if (timer > popUp1DelayTime && !popUp1.activeSelf && spawnedFirstEnemy && !turnedOnPopUp1){
-						popUp1.SetActive(true);
-						timer = 0f;
-						turnedOnPopUp1 = true;
-					}
-					else if(popUp1.activeSelf && playerSwiped){
-						finishedPopUp1 = true;
-						timer = 0f;
-						popUp1.SetActive(false);
-					}
-					else{
-						//timer = 0f;
-					}
+
+		if (!finishedPart1){
+
+			if (timer > popUp1DelayTime){
+				if (!popUp1.activeSelf){
+					popUp1.SetActive(true);
+					Manager.me.playerShouldDash = true;
+					timer = 0f;
+					Time.timeScale = 0f; 
+					greyOut.SetActive(true);
 				}
-					
-				else if(!finishedPopUp2){
-					if (timer > popUp2DelayTime && !popUp2.activeSelf){
-						popUp2.SetActive(true);
-					}
-					else if (popUp2.activeSelf && playerSwiped){
-						Debug.Log("turned off");
-						popUp2.SetActive(false);
-						finishedPopUp2 = true;
-					}
-				}
-				
+
 			}
 
-			if (finishedPopUp1 && Manager.me.score == 1){
-				allEnemiesDead = (GameObject.FindGameObjectWithTag("Enemy") == null);
-				if (allEnemiesDead){
-					GameObject newEnemy = (GameObject) Instantiate(enemyBasic, enemy2StartPos, Quaternion.identity);
-				}
+			//if (popUp1.activeSelf && (timer > popUp1AnimTime || Manager.me.playerSwiped)){
+			if (popUp1.activeSelf && (Manager.me.playerSwiped)){
+				popUp1.SetActive(false);
+				finishedPart1 = true;
+				Time.timeScale = 1f;
+				timer = 0f;
+				greyOut.SetActive(false);
+				return;
 			}
 
-			if (Manager.me.score == 2 && finishedPopUp1 && finishedPopUp2){
-				finishedTutorial = true;
-			}
 		}
-	
+
+		else if(!finishedPart2){
+
+			if (!alreadyShowedPopUp2){
+				if (timer > popUp2DelayTime || Manager.me.playerSwiped){
+					if (!popUp2.activeSelf){
+						popUp2.SetActive(true);
+						Time.timeScale = 0f;
+						timer = 0f;
+						greyOut.SetActive(true);
+						return;
+					}
+
+					if (timer > popUp2AnimTime || Manager.me.playerSwiped){
+						popUp2.SetActive(false);
+						Time.timeScale = 1f;
+						greyOut.SetActive(false);
+						alreadyShowedPopUp2 = true;
+						timer = 0f;
+					}
+
+				}
+			}
+			// already showed popup 2
+			else{
+				if (timer > timeBeforePopUp2Reappears){
+					if (!popUp2.activeSelf){
+						popUp2.SetActive(true);
+						Time.timeScale = 0f;
+						timer = 0f;
+						greyOut.SetActive(true);
+					}
+
+				}
+
+				if (popUp2.activeSelf == true && (timer > popUp2AnimTime || Manager.me.playerSwiped)){
+					popUp2.SetActive(false);
+					Time.timeScale = 1f;
+					timer = 0f;
+					greyOut.SetActive(false);
+					}
+
+				if (Manager.me.score == 1){
+					finishedPart2 = true;
+					finishedTutorial = true;
+					Debug.Log("finished tutorial");
+				}  
+			}
+		}			
+	} // end of tutorial function
 
 }
