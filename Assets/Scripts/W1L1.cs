@@ -26,7 +26,6 @@ public class W1L1 : MonoBehaviour {
 	bool finishedPart1,
 		 finishedPart2,
 		 alreadyShowedPopUp2,
-		 finishedTutorial,
 		 finishedLevel;
 
 	public Vector2 playerStartPos,
@@ -45,14 +44,16 @@ public class W1L1 : MonoBehaviour {
 	void Start(){
 		Manager.me.SpawnSpaceShipTutorial(enemy1StartPos);
 		Manager.me.playerShouldDash = false;
+		Debug.Log(Manager.me.playerShouldDash);
 		Manager.me.playerShouldShoot = false;
+		timer = 0f;
 	}
 
 
 	void Update(){
 		timer+= Time.unscaledDeltaTime;
 
-		if (!finishedTutorial){
+		if (!Manager.me.finishedTutorial){
 			Tutorial();
 		}
 		else if (!finishedLevel){
@@ -68,7 +69,9 @@ public class W1L1 : MonoBehaviour {
 		if (!finishedPart1){
 
 			if (timer > popUp1DelayTime){
+				Debug.Log("timer flag passed: " + Time.unscaledTime.ToString());
 				if (!popUp1.activeSelf){
+					Debug.Log("popup1 active flag passed: " + Time.unscaledTime.ToString());
 					popUp1.SetActive(true);
 					greyOut.SetActive(true);
 					Time.timeScale = 0f; 
@@ -81,6 +84,7 @@ public class W1L1 : MonoBehaviour {
 
 			//if (popUp1.activeSelf && (timer > popUp1AnimTime || Manager.me.playerSwiped)){
 			if (popUp1.activeSelf && (Manager.me.playerSwiped)){
+				Debug.Log("popup1 active and playerSwiped flag passed: " + Time.unscaledTime.ToString());
 				popUp1.SetActive(false);
 				greyOut.SetActive(false);
 				Time.timeScale = 1f;
@@ -135,7 +139,7 @@ public class W1L1 : MonoBehaviour {
 
 				if (Manager.me.score == 1){
 					finishedPart2 = true;
-					finishedTutorial = true;
+					Manager.me.finishedTutorial = true;
 					Debug.Log("finished tutorial");
 				}  
 			}

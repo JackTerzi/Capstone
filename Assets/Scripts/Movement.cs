@@ -95,27 +95,30 @@ public class Movement : MonoBehaviour{
 
 
 	void FixedUpdate (){
-        float drag;
-        if (speed > 1)
-            drag = dragMagnitude * (speed) * Time.fixedDeltaTime;
-        else
-            drag = dragMagnitude;
-		if (addVelocity && speed < maxSpeed) {
-            //Manager.me.playerSwiped = true;
-			speed += addedSpeed;
-			addVelocity = false;
-		} else {
-            Manager.me.playerSwiped = false;
-			speed -= drag;
+        if (Manager.me.playerShouldDash){
+            float drag;
+            if (speed > 1)
+                drag = dragMagnitude * (speed) * Time.fixedDeltaTime;
+            else
+                drag = dragMagnitude;
+            if (addVelocity && speed < maxSpeed) {
+                //Manager.me.playerSwiped = true;
+                speed += addedSpeed;
+                addVelocity = false;
+            } else {
+                Manager.me.playerSwiped = false;
+                speed -= drag;
 
-		}
-		if (speed > maxSpeed) {
-			speed = maxSpeed;
-		}
+            }
+            if (speed > maxSpeed) {
+                speed = maxSpeed;
+            }
 
-        AnimCheck();
-        rb.MoveRotation(Mathf.LerpAngle(Geo.ToAng(transform.right), lookAngle, .35f));
-        rb.MovePosition ((Vector2)transform.position + (Vector2) transform.right * speed * Time.fixedDeltaTime);
+            AnimCheck();
+            rb.MoveRotation(Mathf.LerpAngle(Geo.ToAng(transform.right), lookAngle, .35f));
+            rb.MovePosition ((Vector2)transform.position + (Vector2) transform.right * speed * Time.fixedDeltaTime);
+        }
+
 	}
 
 

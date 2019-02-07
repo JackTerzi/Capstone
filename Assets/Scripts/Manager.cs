@@ -22,7 +22,8 @@ public class Manager : MonoBehaviour {
     public bool isGameOver,
                 playerShouldShoot,
                 playerShouldDash,
-                playerSwiped;
+                playerSwiped,
+                finishedTutorial;
 
     public Text scoreText;
    //public Scene dash, shoot, dashAndShoot, mainMenu;
@@ -87,7 +88,7 @@ public class Manager : MonoBehaviour {
     }
 
 
-    public void Loading(string level){
+    public void LoadLevel(string level){
         SceneManager.LoadScene(level);
     }
 
