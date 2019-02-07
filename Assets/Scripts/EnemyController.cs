@@ -3,53 +3,60 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
+
     Enemy enemy;
+
     public GameObject enemyBullet;
-    public SpriteRenderer spr;
-    Color startColor;
+
+    SpriteRenderer spr;
+
+    public Color startColor,
+                 flashColor;
+
     public float chargeSpeed;
 
-    public bool canShoot;
     float chargeTimer;
-    // Use this for initialization
-    void Start () {
 
-    
+    public bool canShoot;
+
+
+    void Start () {   
         enemy  = new Enemy(this.GetComponent<Rigidbody2D>(), 1, 1, canShoot);
-        spr = gameObject.GetComponent<SpriteRenderer>();
-        startColor = spr.color;
+        spr = GetComponent<SpriteRenderer>();
 	}
 
-    // Update is called once per frame
-    void Update()
-    {
-        if (!Manager.me.gameOver)
-        {
-            enemy.Movement();
-            if (enemy.Shoot())
-            {
 
+    void Update(){
+        if (!Manager.me.isGameOver){
+            enemy.Movement();
+            if (enemy.Shoot()){
                 StartCoroutine(Timer(chargeSpeed));
 
             }
         }
     }
 
+
     public IEnumerator Timer(float time){
-        WaitForSeconds hi = new WaitForSeconds(time);
-        spr.color = Color.white;
+        WaitForSeconds hi = new WaitForSeconds(time); // Hi!
+        spr.color = flashColor;
         yield return hi;
         GameObject thisBullet = Instantiate(enemyBullet, transform.position, Quaternion.identity);
         thisBullet.transform.right = gameObject.transform.right;
         spr.color = startColor;
     }
+
+
     void Hit(){
         Destroy(gameObject);
     }
 
-    private void OnDestroy()
-    {
+
+    void OnDestroy(){
         Manager.me.score++;
-        Manager.me.enemiesOnScreen--;
+        Manager.me.numEnemiesOnScreen--;
+        Manager.me.activeEnemies.Remove(this.gameObject);
     }
+
+
 }

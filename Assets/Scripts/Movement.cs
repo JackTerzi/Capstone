@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Movement : MonoBehaviour
-{
+public class Movement : MonoBehaviour{
 
     Animator movementAnimator;
+
 	Rigidbody2D rb;
 
 	Vector2 startPos,
@@ -14,10 +14,6 @@ public class Movement : MonoBehaviour
 		previousMoveDirection;
 
     int frameCount;
-
-	float 
-		lookAngle,
-		previousAngle;
 
 	bool addVelocity;
 
@@ -31,12 +27,15 @@ public class Movement : MonoBehaviour
         numBullets,
         shotgunOffset;
 
+    float 
+		lookAngle,
+		previousAngle;
+
     public GameObject bullet,
                       fire;
 
 
-	void Start ()
-	{
+	void Start (){
 		rb = GetComponent<Rigidbody2D> ();
         movementAnimator = GetComponent<Animator>();
 		previousMoveDirection = Vector2.zero;
@@ -44,8 +43,7 @@ public class Movement : MonoBehaviour
 	}
 	
 
-	void Update ()
-	{
+	void Update (){
 		if (Input.touchCount > 0) {
             Touch touch = Input.GetTouch (0);
             frameCount++;                       //increment frame 
@@ -96,30 +94,31 @@ public class Movement : MonoBehaviour
 	}
 
 
+	void FixedUpdate (){
+        if (Manager.me.playerShouldDash){
+            float drag;
+            if (speed > 1)
+                drag = dragMagnitude * (speed) * Time.fixedDeltaTime;
+            else
+                drag = dragMagnitude;
+            if (addVelocity && speed < maxSpeed) {
+                //Manager.me.playerSwiped = true;
+                speed += addedSpeed;
+                addVelocity = false;
+            } else {
+                Manager.me.playerSwiped = false;
+                speed -= drag;
 
-	void FixedUpdate ()
-	{
-        float drag;
-        if (speed > 1)
-            drag = dragMagnitude * (speed) * Time.fixedDeltaTime;
-        else
-            drag = dragMagnitude;
-		if (addVelocity && speed < maxSpeed) {
-            Manager.me.playerSwiped = true;
-			speed += addedSpeed;
-			addVelocity = false;
-		} else {
-            Manager.me.playerSwiped = false;
-			speed -= drag;
+            }
+            if (speed > maxSpeed) {
+                speed = maxSpeed;
+            }
 
-		}
-		if (speed > maxSpeed) {
-			speed = maxSpeed;
-		}
+            AnimCheck();
+            rb.MoveRotation(Mathf.LerpAngle(Geo.ToAng(transform.right), lookAngle, .35f));
+            rb.MovePosition ((Vector2)transform.position + (Vector2) transform.right * speed * Time.fixedDeltaTime);
+        }
 
-        AnimCheck();
-        rb.MoveRotation(Mathf.LerpAngle(Geo.ToAng(transform.right), lookAngle, .35f));
-        rb.MovePosition ((Vector2)transform.position + (Vector2) transform.right * speed * Time.fixedDeltaTime);
 	}
 
 
@@ -137,12 +136,12 @@ public class Movement : MonoBehaviour
         if (speed > runAnimSpeed)
         {
             movementAnimator.SetBool("isRunning", true);
-            if (Manager.me.shouldDash)
+            if (Manager.me.playerShouldDash)
                 fire.SetActive(true);
         }
         else if (speed > walkAnimSpeed)
         {
-            if(Manager.me.shouldDash)
+            if(Manager.me.playerShouldDash)
                 fire.SetActive(false);
             movementAnimator.SetBool("isRunning", false);
             movementAnimator.SetBool("isWalking", true);
@@ -150,7 +149,7 @@ public class Movement : MonoBehaviour
         }
         else
         {   
-            if (Manager.me.shouldDash)
+            if (Manager.me.playerShouldDash)
                 fire.SetActive(false);
             movementAnimator.SetBool("isWalking", false);
             movementAnimator.SetBool("isRunning", false);
@@ -160,19 +159,16 @@ public class Movement : MonoBehaviour
     }
 
 
-
     void Shoot(){
 
-        if (Manager.me.shouldShoot)
-        {
+        if (Manager.me.playerShouldShoot){
             addVelocity = true;
 
             float bulletSpawnAng,
             bulletSpawnPos;
             movementAnimator.SetBool("isShooting", true);
-            for (int i = 0; i < numBullets; i++)
-            {
 
+            for (int i = 0; i < numBullets; i++){
                 float power = Mathf.Pow(-1, i);
                 bulletSpawnAng = (i / numBullets) * 20f * power;
                 bulletSpawnPos = (i / numBullets) * .3f * power;
@@ -185,9 +181,8 @@ public class Movement : MonoBehaviour
      }
 
 
-    private void OnDestroy()
-    {
-        Manager.me.gameOver = true;
+    void OnDestroy(){
+        Manager.me.isGameOver = true;
     }
 
 
