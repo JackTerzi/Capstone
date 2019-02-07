@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114792562629154204}
   - component: {fileID: 50184974175871386}
   m_Layer: 14
-  m_Name: Space Ship
+  m_Name: SpaceShipTutorial
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,8 +91,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sizeIncrease: 0.01
-  timer: 0
   maxSize: 1
+  timeBetweenEnemySpawns: 0
+  enemySpawnRadius: 1.2
+  enemySpawnAngleStep: 0
   numEnemiesInside: 1
   enemyInside: {fileID: 1399737481222844, guid: c2a5a24f391134a97a7a31e57da46767,
     type: 2}
@@ -102,7 +104,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1183282200059582}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 230c7e768f33d45678c91d6ca78e06b5, type: 3}
   m_Name: 

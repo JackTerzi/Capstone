@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Movement : MonoBehaviour
-{
+public class Movement : MonoBehaviour{
 
     Animator movementAnimator;
+
 	Rigidbody2D rb;
 
 	Vector2 startPos,
@@ -14,10 +14,6 @@ public class Movement : MonoBehaviour
 		previousMoveDirection;
 
     int frameCount;
-
-	float 
-		lookAngle,
-		previousAngle;
 
 	bool addVelocity;
 
@@ -30,6 +26,10 @@ public class Movement : MonoBehaviour
         walkAnimSpeed,
         numBullets,
         shotgunOffset;
+
+    float 
+		lookAngle,
+		previousAngle;
 
     public GameObject bullet,
                       fire;
@@ -94,7 +94,6 @@ public class Movement : MonoBehaviour
 	}
 
 
-
 	void FixedUpdate (){
         float drag;
         if (speed > 1)
@@ -157,7 +156,6 @@ public class Movement : MonoBehaviour
     }
 
 
-
     void Shoot(){
 
         if (Manager.me.playerShouldShoot){
@@ -166,8 +164,8 @@ public class Movement : MonoBehaviour
             float bulletSpawnAng,
             bulletSpawnPos;
             movementAnimator.SetBool("isShooting", true);
-            for (int i = 0; i < numBullets; i++){
 
+            for (int i = 0; i < numBullets; i++){
                 float power = Mathf.Pow(-1, i);
                 bulletSpawnAng = (i / numBullets) * 20f * power;
                 bulletSpawnPos = (i / numBullets) * .3f * power;

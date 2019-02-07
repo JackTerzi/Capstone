@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1967091076422870}
+  m_RootGameObject: {fileID: 1739389333685416}
   m_IsPrefabAsset: 1
---- !u!1 &1967091076422870
+--- !u!1 &1739389333685416
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4850263559222338}
-  - component: {fileID: 114685854150887646}
+  - component: {fileID: 4148356180420426}
+  - component: {fileID: 114631753062540346}
   m_Layer: 0
-  m_Name: Manager Boy
+  m_Name: Manager Boi
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4850263559222338
+--- !u!4 &4148356180420426
 Transform:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1967091076422870}
+  m_GameObject: {fileID: 1739389333685416}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
@@ -40,23 +40,29 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114685854150887646
+--- !u!114 &114631753062540346
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1967091076422870}
+  m_GameObject: {fileID: 1739389333685416}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c36e01420fcf34fef8446bc0a56783a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
+  spaceShipTutorialPrefab: {fileID: 1183282200059582, guid: 5ecf23924f3f84a9a8e587b52e327543,
+    type: 2}
+  spaceShipBasicPrefab: {fileID: 1183282200059582, guid: 64388080894a44abeb92ec4447f4b372,
+    type: 2}
   activeEnemies: []
-  enemiesOnScreen: 0
+  activeSpaceShips: []
   score: 0
+  numSpaceShipsSpawned: 0
+  numEnemiesOnScreen: 0
   isGameOver: 0
-  playerShouldShoot: 0
+  playerShouldShoot: 1
   playerShouldDash: 1
   playerSwiped: 0
   scoreText: {fileID: 0}

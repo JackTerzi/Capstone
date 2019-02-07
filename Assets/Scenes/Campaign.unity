@@ -1032,12 +1032,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 690450699}
-  enemiesOnScreen: 0
-  currrentLevel: 1.1
+  spaceShipPrefab: {fileID: 0}
+  activeEnemies: []
+  activeSpaceShips: []
   score: 0
-  gameOver: 0
-  shouldShoot: 0
-  shouldDash: 1
+  numSpaceShipsSpawned: 0
+  numEnemiesOnScreen: 0
+  isGameOver: 0
+  playerShouldShoot: 1
+  playerShouldDash: 1
+  playerSwiped: 0
   scoreText: {fileID: 304702962}
 --- !u!114 &1333392727
 MonoBehaviour:

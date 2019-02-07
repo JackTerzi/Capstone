@@ -5,10 +5,14 @@ using UnityEngine;
 public class Enemy {
 
     int health,
-    speed;
+        speed;
+
     float randomShoot;
+
     bool canShoot;
+
     Rigidbody2D enem;
+
     GameObject player;
 
 
@@ -19,7 +23,7 @@ public class Enemy {
         this.enem = me;
         this.randomShoot = Time.time + Random.Range(2f, 6f);
         this.canShoot = canShoot;
-        Manager.me.enemiesOnScreen++;
+        Manager.me.numEnemiesOnScreen++;
         player = Manager.me.player;
 
     }
@@ -30,7 +34,7 @@ public class Enemy {
         this.speed = speed;
         this.enem = me;
         this.randomShoot = Time.time + Random.Range(2f, 6f);
-        Manager.me.enemiesOnScreen++;
+        Manager.me.numEnemiesOnScreen++;
         player = Manager.me.player;
 
     }

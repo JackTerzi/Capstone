@@ -4,42 +4,38 @@ using UnityEngine;
 
 public class W1L1 : MonoBehaviour {
 
-	public float minimumBashSpeed,
-				 firstEnemySpawnDelay,
-				 popUp1DelayTime, // the time it takes for the first enemy to completely spawn
+	public float popUp1DelayTime, // should equal the time it takes for the first enemy to completely spawn
 				 popUp1AnimTime,
 				 popUp2DelayTime,
 				 popUp2AnimTime,
-				 timeBeforePopUp2Reappears;
+				 timeBeforePopUp2Reappears,
+				 numOfSpaceShips; // including the first 1 for tutorial
 	
 	float timer;
 
 	public GameObject playerPrefab,
-					  enemyBasic,
+					  enemySpaceShip,
 					  popUp1,
 					  popUp2,
-					  greyOut;
+					  greyOut,
+					  nextLevelArrow,
+					  door;
 
 	GameObject player;
-
+	
 	bool finishedPart1,
 		 finishedPart2,
 		 alreadyShowedPopUp2,
-		 allEnemiesDead,
-		 finishedTutorial;
+		 finishedTutorial,
+		 finishedLevel;
 
 	public Vector2 playerStartPos,
 				   enemy1StartPos,
 				   enemy2StartPos;
 
-	Movement playerMovement;
-
 
 	void Awake () {
-			//player = Manager.me.player;
 			player = (GameObject) Instantiate(playerPrefab, playerStartPos, Quaternion.identity);
-			playerMovement = player.GetComponent<Movement>();
-			minimumBashSpeed = playerMovement.runAnimSpeed;
 			popUp1.SetActive(false);
 			popUp2.SetActive(false);
 		
@@ -47,8 +43,9 @@ public class W1L1 : MonoBehaviour {
 
 
 	void Start(){
-		GameObject newEnemy = (GameObject) Instantiate(enemyBasic, enemy1StartPos, Quaternion.identity);
+		Manager.me.SpawnSpaceShipTutorial(enemy1StartPos);
 		Manager.me.playerShouldDash = false;
+		Manager.me.playerShouldShoot = false;
 	}
 
 
@@ -58,31 +55,26 @@ public class W1L1 : MonoBehaviour {
 		if (!finishedTutorial){
 			Tutorial();
 		}
+		else if (!finishedLevel){
+			WaveEnemies();
+		}
 		else{
-
+			ActivateNextLevel();
 		}
 	}
 	
 
-	void FixedUpdate () {
-		//if (player != null){
-			//playerPos = player.transform.position;
-		//}
-		
-	}
-
-
 	void Tutorial(){
-
 		if (!finishedPart1){
 
 			if (timer > popUp1DelayTime){
 				if (!popUp1.activeSelf){
 					popUp1.SetActive(true);
-					Manager.me.playerShouldDash = true;
-					timer = 0f;
-					Time.timeScale = 0f; 
 					greyOut.SetActive(true);
+					Time.timeScale = 0f; 
+					timer = 0f;
+					Manager.me.playerShouldDash = true;
+
 				}
 
 			}
@@ -90,10 +82,10 @@ public class W1L1 : MonoBehaviour {
 			//if (popUp1.activeSelf && (timer > popUp1AnimTime || Manager.me.playerSwiped)){
 			if (popUp1.activeSelf && (Manager.me.playerSwiped)){
 				popUp1.SetActive(false);
-				finishedPart1 = true;
+				greyOut.SetActive(false);
 				Time.timeScale = 1f;
 				timer = 0f;
-				greyOut.SetActive(false);
+				finishedPart1 = true;
 				return;
 			}
 
@@ -101,43 +93,44 @@ public class W1L1 : MonoBehaviour {
 
 		else if(!finishedPart2){
 
-			if (!alreadyShowedPopUp2){
+			if (!alreadyShowedPopUp2){ // first time showing pop up 2
 				if (timer > popUp2DelayTime || Manager.me.playerSwiped){
 					if (!popUp2.activeSelf){
 						popUp2.SetActive(true);
+						greyOut.SetActive(true);
 						Time.timeScale = 0f;
 						timer = 0f;
-						greyOut.SetActive(true);
 						return;
 					}
 
 					if (timer > popUp2AnimTime || Manager.me.playerSwiped){
 						popUp2.SetActive(false);
-						Time.timeScale = 1f;
 						greyOut.SetActive(false);
-						alreadyShowedPopUp2 = true;
+						Time.timeScale = 1f;
 						timer = 0f;
+						alreadyShowedPopUp2 = true;
 					}
 
 				}
 			}
-			// already showed popup 2
-			else{
+			
+			else{ // not first time showing pop up 2
 				if (timer > timeBeforePopUp2Reappears){
 					if (!popUp2.activeSelf){
 						popUp2.SetActive(true);
+						greyOut.SetActive(true);
 						Time.timeScale = 0f;
 						timer = 0f;
-						greyOut.SetActive(true);
 					}
 
 				}
 
 				if (popUp2.activeSelf == true && (timer > popUp2AnimTime || Manager.me.playerSwiped)){
 					popUp2.SetActive(false);
+					greyOut.SetActive(false);
 					Time.timeScale = 1f;
 					timer = 0f;
-					greyOut.SetActive(false);
+					
 					}
 
 				if (Manager.me.score == 1){
@@ -148,5 +141,25 @@ public class W1L1 : MonoBehaviour {
 			}
 		}			
 	} // end of tutorial function
+
+
+	void WaveEnemies(){
+		// spawns spaceships until numOfSpaceShips reached
+		if (Manager.me.numSpaceShipsSpawned < numOfSpaceShips && Manager.me.activeSpaceShips.Count == 0 && Manager.me.numEnemiesOnScreen == 0){
+			Manager.me.SpawnSpaceShipBasic(enemy2StartPos);
+		}
+		if (numOfSpaceShips == Manager.me.numSpaceShipsSpawned && Manager.me.activeEnemies.Count == 0 && Manager.me.activeSpaceShips.Count == 0){
+			Debug.Log("finished level");
+			finishedLevel = true;
+		}
+
+	}
+
+
+	void ActivateNextLevel(){
+		nextLevelArrow.SetActive(true);
+		door.GetComponent<SpriteRenderer>().enabled = false;
+	}
+
 
 }

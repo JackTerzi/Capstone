@@ -5,31 +5,31 @@ using UnityEngine;
 public class EnemyController : MonoBehaviour {
 
     Enemy enemy;
+
     public GameObject enemyBullet;
+
     SpriteRenderer spr;
-    Color startColor;
+
+    public Color startColor,
+                 flashColor;
+
     public float chargeSpeed;
 
-    public bool canShoot;
     float chargeTimer;
 
+    public bool canShoot;
 
-    void Start () {
 
-    
+    void Start () {   
         enemy  = new Enemy(this.GetComponent<Rigidbody2D>(), 1, 1, canShoot);
         spr = GetComponent<SpriteRenderer>();
-        startColor = spr.color;
 	}
 
 
     void Update(){
-        if (!Manager.me.isGameOver)
-        {
+        if (!Manager.me.isGameOver){
             enemy.Movement();
-            if (enemy.Shoot())
-            {
-
+            if (enemy.Shoot()){
                 StartCoroutine(Timer(chargeSpeed));
 
             }
@@ -38,8 +38,8 @@ public class EnemyController : MonoBehaviour {
 
 
     public IEnumerator Timer(float time){
-        WaitForSeconds hi = new WaitForSeconds(time);
-        spr.color = Color.white;
+        WaitForSeconds hi = new WaitForSeconds(time); // Hi!
+        spr.color = flashColor;
         yield return hi;
         GameObject thisBullet = Instantiate(enemyBullet, transform.position, Quaternion.identity);
         thisBullet.transform.right = gameObject.transform.right;
@@ -54,7 +54,8 @@ public class EnemyController : MonoBehaviour {
 
     void OnDestroy(){
         Manager.me.score++;
-        Manager.me.enemiesOnScreen--;
+        Manager.me.numEnemiesOnScreen--;
+        Manager.me.activeEnemies.Remove(this.gameObject);
     }
 
 

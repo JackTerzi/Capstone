@@ -6,9 +6,9 @@ public class EnemySpawner : MonoBehaviour {
 
     public GameObject enemies;
 
-    float spawnTime;
-
     public float maxEnemOnScreen;
+
+    float spawnTime;
 
 
 	void Start () {
@@ -19,12 +19,12 @@ public class EnemySpawner : MonoBehaviour {
 
 	void Update () {
         if (!Manager.me.isGameOver){
-            if (Time.time > spawnTime && Manager.me.enemiesOnScreen < maxEnemOnScreen){
+            if (Time.time > spawnTime && Manager.me.numEnemiesOnScreen < maxEnemOnScreen){
                 GameObject temp = Instantiate(enemies, new Vector2(Random.Range(-3f, 3f), Random.Range(-5.2f, 5.2f)), Quaternion.identity);
                 spawnTime = Time.time + .5f;
 
             }
         }
 	}
-    
+
 }
