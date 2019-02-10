@@ -38,6 +38,16 @@ public class Enemy {
         player = Manager.me.player;
 
     }
+    public Enemy(Rigidbody2D me, bool cS)
+    {
+        this.enem = me;
+        this.randomShoot = Time.time + Random.Range(2f, 6f);
+        this.canShoot = cS;
+        Manager.me.numEnemiesOnScreen++;
+
+        player = Manager.me.player;
+
+    }
 
 
     public void Movement(){
