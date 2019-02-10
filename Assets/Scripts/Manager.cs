@@ -36,6 +36,7 @@ public class Manager : MonoBehaviour {
         else{
             Destroy(this.gameObject);
         }
+
     }
 
 
@@ -74,15 +75,8 @@ public class Manager : MonoBehaviour {
 	}
 
 
-    public void SpawnSpaceShipTutorial(Vector2 spawnPos){
-        GameObject newSpaceShip = (GameObject) Instantiate(spaceShipTutorialPrefab, new Vector2(spawnPos.x, spawnPos.y), Quaternion.identity);
-        activeSpaceShips.Add(newSpaceShip);
-        numSpaceShipsSpawned++;
-    }
-
-
-    public void SpawnSpaceShipBasic(Vector2 spawnPos){
-        GameObject newSpaceShip = (GameObject) Instantiate(spaceShipBasicPrefab, new Vector2(spawnPos.x, spawnPos.y), Quaternion.identity);
+    public void SpawnSpaceShip(GameObject spaceShip, Vector2 spawnPos){
+        GameObject newSpaceShip = (GameObject) Instantiate(spaceShip, new Vector2(spawnPos.x, spawnPos.y), Quaternion.identity);
         activeSpaceShips.Add(newSpaceShip);
         numSpaceShipsSpawned++;
     }

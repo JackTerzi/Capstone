@@ -9,12 +9,12 @@ public class BulletScript : MonoBehaviour {
                 bulletAccel,
                 bulletStop;
     
-	// Use this for initialization
+
 	void Start () {
         rb = GetComponent<Rigidbody2D>();
 	}
 	
-	// Update is called once per frame
+
 	void FixedUpdate () {
         rb.MovePosition(transform.position + (transform.right * bulletSpeed * Time.fixedDeltaTime));
         bulletSpeed -= bulletAccel;
@@ -25,11 +25,10 @@ public class BulletScript : MonoBehaviour {
     }
 
 
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player"){
-            
+
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);                     
         }
         

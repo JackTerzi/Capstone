@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class SpaceShip : MonoBehaviour {
 
-    public float sizeIncrease,
-                 maxSize,
+    public float maxSize,
+                 timeToReachMaxSize,
                  timeBetweenEnemySpawns,
                  enemySpawnRadius,
                  enemySpawnAngleStep;
 
     float timer,
+         spawnTime,
           firstEnemySpawnAngle;
 
     public int numEnemiesInside;
@@ -20,9 +21,13 @@ public class SpaceShip : MonoBehaviour {
 
     SpriteRenderer spr;
 
+    public Color targetColor,
+                 startColor;
+
     CircleCollider2D col;
 
-    bool spawnedAllEnemies;
+    bool shipLanded,
+         spawnedAllEnemies;
 
     public GameObject enemyInside;
 
@@ -33,24 +38,24 @@ public class SpaceShip : MonoBehaviour {
         spr = GetComponent<SpriteRenderer>();
         col = GetComponent<CircleCollider2D>();
         bsh = GetComponent<Bashable>();
+        spawnTime = Time.time;
 	}
 	
 
     void Update () {
-        
+        timer += Time.deltaTime;
 
         if(transform.localScale.x < maxSize){
-            transform.localScale = new Vector3(transform.localScale.x + sizeIncrease, transform.localScale.y + sizeIncrease, 1);
+            transform.localScale = new Vector2(maxSize * (Time.time - spawnTime), maxSize * (Time.time - spawnTime));
         }
         else{
-            spr.color = Color.blue;
+            //transform.localScale = new Vector2(maxSize, maxSize);
             Vector2 newEnemySpawnPos;
 
             if (!spawnedAllEnemies)
-            {
-                timer += Time.unscaledDeltaTime;
-
+            {                
                 if (numEnemiesSpawned == 0){
+                    spr.color = startColor;
                     firstEnemySpawnAngle = Random.Range(0f,2f * Mathf.PI);
                     float f = Random.Range(0f,1f);
                     if (f < .5f){
@@ -77,6 +82,7 @@ public class SpaceShip : MonoBehaviour {
                     spawnedAllEnemies = true;
                     col.enabled = true;
                     bsh.enabled = true;
+                    spr.color = targetColor;
                 }
 
             }
