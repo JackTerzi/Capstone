@@ -65,4 +65,5 @@ MonoBehaviour:
   playerShouldShoot: 1
   playerShouldDash: 1
   playerSwiped: 0
+  finishedTutorial: 0
   scoreText: {fileID: 0}
