@@ -13,15 +13,12 @@ public class W1L1 : MonoBehaviour {
 	
 	float timer;
 
-	public GameObject playerPrefab,
-					  enemySpaceShip,
+	public GameObject enemySpaceShip,
 					  popUp1,
 					  popUp2,
 					  greyOut,
 					  nextLevelArrow,
 					  door;
-
-	GameObject player;
 	
 	bool finishedPart1,
 		 finishedPart2,
@@ -34,7 +31,7 @@ public class W1L1 : MonoBehaviour {
 
 
 	void Awake () {
-			player = (GameObject) Instantiate(playerPrefab, playerStartPos, Quaternion.identity);
+			Manager.me.player = (GameObject) Instantiate(Manager.me.playerPrefab, playerStartPos, Quaternion.identity);
 			popUp1.SetActive(false);
 			popUp2.SetActive(false);
 		
@@ -47,16 +44,18 @@ public class W1L1 : MonoBehaviour {
 			enemyShipToSpawn = Manager.me.spaceShipTutorialPrefab;
 			Manager.me.playerShouldDash = false;
 			Manager.me.playerShouldShoot = false;
-			Debug.Log("didn't finish tutorial");
 		}
 		else{
 			enemyShipToSpawn = Manager.me.spaceShipBasicPrefab;
 			Manager.me.playerShouldDash = true;
 			Manager.me.playerShouldShoot = true;
-			Debug.Log("finished tutorial");
 		}
 
-		Manager.me.SpawnSpaceShip(enemyShipToSpawn, enemy1StartPos);
+		if (!Manager.me.finishedTutorial){
+			Manager.me.SpawnSpaceShip(enemyShipToSpawn, enemy1StartPos);
+		}
+
+		
 		timer = 0f;
 	}
 
@@ -68,7 +67,10 @@ public class W1L1 : MonoBehaviour {
 			Tutorial();
 		}
 		else if (!finishedLevel){
-			WaveEnemies();
+			if (Manager.me != null){
+				WaveEnemies();
+			}
+			
 		}
 		else{
 			ActivateNextLevel();
@@ -148,7 +150,7 @@ public class W1L1 : MonoBehaviour {
 					
 					}
 
-				if (Manager.me.score == 1){
+				if (Manager.me.activeEnemies.Count == 0 && Manager.me.activeSpaceShips.Count == 0){
 					finishedPart2 = true;
 					Manager.me.finishedTutorial = true;
 					//Debug.Log("finished tutorial");

@@ -89,9 +89,16 @@ public class SpaceShip : MonoBehaviour {
         }
     }
 
-    
+
+    void Hit(){
+        Manager.me.activeSpaceShips.Remove(this.gameObject);
+        Destroy(gameObject);
+    }
+
+
     void OnDestroy(){
         Manager.me.activeSpaceShips.Remove(this.gameObject);
+    
     }
 
 }

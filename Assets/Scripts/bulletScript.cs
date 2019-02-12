@@ -28,8 +28,8 @@ public class BulletScript : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player"){
-
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name);                     
+            Manager.me.isGameOver = true;
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name);                     
         }
         
         if(collision.gameObject.layer != LayerMask.NameToLayer("Walls") && collision.gameObject.layer != LayerMask.NameToLayer("Bashable"))

@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
+//using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class Manager : MonoBehaviour {
@@ -9,8 +9,11 @@ public class Manager : MonoBehaviour {
     public static Manager me;
 
     public GameObject player,
+                      playerPrefab,
                       spaceShipTutorialPrefab,
-                      spaceShipBasicPrefab;
+                      spaceShipBasicPrefab,
+                      enemyBasicPrefab,
+                      enemySuicidePrefab;
 
     public List<GameObject> activeEnemies = new List<GameObject>();
     public List<GameObject> activeSpaceShips = new List<GameObject>();
@@ -25,28 +28,43 @@ public class Manager : MonoBehaviour {
                 playerSwiped,
                 finishedTutorial;
 
-    public Text scoreText;
    //public Scene dash, shoot, dashAndShoot, mainMenu;
 
 
     void Awake(){
+        DontDestroyOnLoad(this.gameObject);
+ 
+        //Debug.Log("awoken");
         if (me == null){
+            Debug.Log("I was created");
             me = this;
         }
         else{
+  
+            Debug.Log("I was destroyed");
+            isGameOver = false;
             Destroy(this.gameObject);
         }
+
+        
+        
 
     }
 
 
 	void Start () {
-        player = GameObject.FindWithTag("Player");
-        
+        me.isGameOver = false;
+        me.player = GameObject.FindGameObjectWithTag("Player");
 	}
 	
 
 	void Update () {
+        if (player == null){
+            player = GameObject.FindGameObjectWithTag("Player");
+        }
+
+        numEnemiesOnScreen = activeEnemies.Count;
+
         if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended){
             playerSwiped = true;
         }
@@ -54,36 +72,40 @@ public class Manager : MonoBehaviour {
             playerSwiped = false;
         }
 
-
-        if(Utility.IsDefined(scoreText)){
-            scoreText.text = "Score: " + score;
-        }
-
-
         if (isGameOver){
-            if (scoreText != null){
-                scoreText.GetComponent<RectTransform>().anchoredPosition = Vector2.zero;
-                scoreText.text = "Game Over. Final Score: " + score + "\nTap to Restart";
-                scoreText.alignment = TextAnchor.MiddleCenter;
-            }
-            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            me.isGameOver = false;
+            me.score = 0;
+            me.activeEnemies = new List<GameObject>();
+            me.activeSpaceShips = new List<GameObject>();
+            me.numEnemiesOnScreen = 0;
+            me.numSpaceShipsSpawned = 0;
 
-            if(Input.GetMouseButtonDown(0)){
-                SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-            }
         }
 	}
+
 
 
     public void SpawnSpaceShip(GameObject spaceShip, Vector2 spawnPos){
         GameObject newSpaceShip = (GameObject) Instantiate(spaceShip, new Vector2(spawnPos.x, spawnPos.y), Quaternion.identity);
         activeSpaceShips.Add(newSpaceShip);
-        numSpaceShipsSpawned++;
+        Debug.Log("spawned ship: " + newSpaceShip.gameObject.name);
+
+        if (Time.timeSinceLevelLoad < 1f){
+            numSpaceShipsSpawned = 1;
+        }
+        else{
+            numSpaceShipsSpawned ++;
+        }
+
+        //numSpaceShipsSpawned++;
+        Debug.Log(numSpaceShipsSpawned);
+        Debug.Log(this.gameObject.name);
     }
 
 
-    public void LoadLevel(string level){
-        SceneManager.LoadScene(level);
+    public static void LoadLevel(string level){
+
     }
 
 }

@@ -48,14 +48,9 @@ public class EnemyController : MonoBehaviour {
 
 
     void Hit(){
-        Destroy(gameObject);
-    }
-
-
-    void OnDestroy(){
         Manager.me.score++;
-        Manager.me.numEnemiesOnScreen--;
         Manager.me.activeEnemies.Remove(this.gameObject);
+        Destroy(gameObject);
     }
 
 
