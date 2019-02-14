@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -72,7 +72,7 @@ public class SpaceShip : MonoBehaviour {
                     newEnemySpawnPos += (Vector2) transform.position;
 
                     GameObject newEnemy = (GameObject) Instantiate(enemyInside, newEnemySpawnPos, Quaternion.identity);
-                    Manager.me.activeEnemies.Add(newEnemy);
+                    //Manager.me.activeEnemies.Add(newEnemy);
                     numEnemiesSpawned++;
                     timer = 0f;
                     

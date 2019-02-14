@@ -37,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1399737481222844}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1426239, y: 4.0892563, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.3, y: 0.3, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -101,7 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyBullet: {fileID: 1099632510559916, guid: 39c1e70b6f9da4d3aa7da6f3be3ffc22,
     type: 2}
-  spr: {fileID: 0}
+  startColor: {r: 0, g: 0, b: 0, a: 0}
+  flashColor: {r: 0, g: 0, b: 0, a: 0}
   chargeSpeed: 1
   canShoot: 0
 --- !u!212 &212446800188815944
