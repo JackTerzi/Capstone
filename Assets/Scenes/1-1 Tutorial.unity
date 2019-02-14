@@ -1178,7 +1178,6 @@ GameObject:
   - component: {fileID: 718308325}
   - component: {fileID: 718308324}
   - component: {fileID: 718308323}
-  - component: {fileID: 718308326}
   m_Layer: 0
   m_Name: Player / Enemy Cam
   m_TagString: MainCamera
@@ -1246,18 +1245,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &718308326
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 718308322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: dd24dccf0ae3041f5be570c5a2d9f124, type: 2}
 --- !u!1001 &760894354
 Prefab:
   m_ObjectHideFlags: 0
@@ -2229,7 +2216,6 @@ GameObject:
   - component: {fileID: 1688052224}
   - component: {fileID: 1688052223}
   - component: {fileID: 1688052222}
-  - component: {fileID: 1688052221}
   m_Layer: 0
   m_Name: Environment Cam
   m_TagString: Untagged
@@ -2237,18 +2223,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1688052221
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1688052220}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff26db721962cdf4a8edcdfa9a767d2a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  profile: {fileID: 11400000, guid: 3c04581097f1e4ecc887c87f8e505312, type: 2}
 --- !u!81 &1688052222
 AudioListener:
   m_ObjectHideFlags: 0

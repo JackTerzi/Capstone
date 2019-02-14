@@ -21,6 +21,7 @@ public class SuicideEnemy : MonoBehaviour {
     void Start () {
         rb = GetComponent<Rigidbody2D>();
         enem = new Enemy(rb, false);
+        //GetComponent<UnityEngine.AI.NavMeshAgent>().destination = Manager.me.player.transform.position;
 	}
 	
 
@@ -58,7 +59,7 @@ public class SuicideEnemy : MonoBehaviour {
     }
 
 
-    void OnDestroy(){
+    void OnDestroy(){ 
         Manager.me.score++;
         Manager.me.numEnemiesOnScreen--;
         Manager.me.activeEnemies.Remove(this.gameObject);
