@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -23,6 +23,7 @@ public class EnemyController : MonoBehaviour {
     void Start () {   
         enemy  = new Enemy(this.GetComponent<Rigidbody2D>(), 1, 1, canShoot);
         spr = GetComponent<SpriteRenderer>();
+	Manager.me.activeEnemies.Add(this.gameObject);
 	}
 
 
@@ -48,14 +49,9 @@ public class EnemyController : MonoBehaviour {
 
 
     void Hit(){
-        Destroy(gameObject);
-    }
-
-
-    void OnDestroy(){
         Manager.me.score++;
-        Manager.me.numEnemiesOnScreen--;
         Manager.me.activeEnemies.Remove(this.gameObject);
+        Destroy(gameObject);
     }
 
 

@@ -13,15 +13,12 @@ public class W1L1 : MonoBehaviour {
 	
 	float timer;
 
-	public GameObject playerPrefab,
-					  enemySpaceShip,
+	public GameObject enemySpaceShip,
 					  popUp1,
 					  popUp2,
 					  greyOut,
 					  nextLevelArrow,
 					  door;
-
-	GameObject player;
 	
 	bool finishedPart1,
 		 finishedPart2,
@@ -34,7 +31,7 @@ public class W1L1 : MonoBehaviour {
 
 
 	void Awake () {
-			player = (GameObject) Instantiate(playerPrefab, playerStartPos, Quaternion.identity);
+			Manager.me.player = (GameObject) Instantiate(Manager.me.playerPrefab, playerStartPos, Quaternion.identity);
 			popUp1.SetActive(false);
 			popUp2.SetActive(false);
 		
@@ -42,22 +39,38 @@ public class W1L1 : MonoBehaviour {
 
 
 	void Start(){
-		Manager.me.SpawnSpaceShipTutorial(enemy1StartPos);
-		Manager.me.playerShouldDash = false;
-		Debug.Log(Manager.me.playerShouldDash);
-		Manager.me.playerShouldShoot = false;
+		GameObject enemyShipToSpawn;
+		if (!Manager.me.finishedTutorial){
+			enemyShipToSpawn = Manager.me.spaceShipTutorialPrefab;
+			Manager.me.playerShouldDash = false;
+			Manager.me.playerShouldShoot = false;
+		}
+		else{
+			enemyShipToSpawn = Manager.me.spaceShipBasicPrefab;
+			Manager.me.playerShouldDash = true;
+			Manager.me.playerShouldShoot = true;
+		}
+
+		if (!Manager.me.finishedTutorial){
+			Manager.me.SpawnSpaceShip(enemyShipToSpawn, enemy1StartPos);
+		}
+
+		
 		timer = 0f;
 	}
 
 
 	void Update(){
-		timer+= Time.unscaledDeltaTime;
+		timer += Time.unscaledDeltaTime;
 
 		if (!Manager.me.finishedTutorial){
 			Tutorial();
 		}
 		else if (!finishedLevel){
-			WaveEnemies();
+			if (Manager.me != null){
+				WaveEnemies();
+			}
+			
 		}
 		else{
 			ActivateNextLevel();
@@ -69,9 +82,9 @@ public class W1L1 : MonoBehaviour {
 		if (!finishedPart1){
 
 			if (timer > popUp1DelayTime){
-				Debug.Log("timer flag passed: " + Time.unscaledTime.ToString());
+				//Debug.Log("timer flag passed: " + Time.unscaledTime.ToString());
 				if (!popUp1.activeSelf){
-					Debug.Log("popup1 active flag passed: " + Time.unscaledTime.ToString());
+					//Debug.Log("popup1 active flag passed: " + Time.unscaledTime.ToString());
 					popUp1.SetActive(true);
 					greyOut.SetActive(true);
 					Time.timeScale = 0f; 
@@ -84,7 +97,7 @@ public class W1L1 : MonoBehaviour {
 
 			//if (popUp1.activeSelf && (timer > popUp1AnimTime || Manager.me.playerSwiped)){
 			if (popUp1.activeSelf && (Manager.me.playerSwiped)){
-				Debug.Log("popup1 active and playerSwiped flag passed: " + Time.unscaledTime.ToString());
+				//Debug.Log("popup1 active and playerSwiped flag passed: " + Time.unscaledTime.ToString());
 				popUp1.SetActive(false);
 				greyOut.SetActive(false);
 				Time.timeScale = 1f;
@@ -137,10 +150,10 @@ public class W1L1 : MonoBehaviour {
 					
 					}
 
-				if (Manager.me.score == 1){
+				if (Manager.me.activeEnemies.Count == 0 && Manager.me.activeSpaceShips.Count == 0){
 					finishedPart2 = true;
 					Manager.me.finishedTutorial = true;
-					Debug.Log("finished tutorial");
+					//Debug.Log("finished tutorial");
 				}  
 			}
 		}			
@@ -150,7 +163,7 @@ public class W1L1 : MonoBehaviour {
 	void WaveEnemies(){
 		// spawns spaceships until numOfSpaceShips reached
 		if (Manager.me.numSpaceShipsSpawned < numOfSpaceShips && Manager.me.activeSpaceShips.Count == 0 && Manager.me.numEnemiesOnScreen == 0){
-			Manager.me.SpawnSpaceShipBasic(enemy2StartPos);
+			Manager.me.SpawnSpaceShip(Manager.me.spaceShipBasicPrefab, enemy2StartPos);
 		}
 		if (numOfSpaceShips == Manager.me.numSpaceShipsSpawned && Manager.me.activeEnemies.Count == 0 && Manager.me.activeSpaceShips.Count == 0){
 			Debug.Log("finished level");

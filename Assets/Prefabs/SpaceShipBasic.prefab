@@ -90,12 +90,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 33ecf946bb9834b4fbdb9d906c1aa6a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeIncrease: 0.01
   maxSize: 1
+  timeToReachMaxSize: 3
   timeBetweenEnemySpawns: 0.5
   enemySpawnRadius: 1.2
   enemySpawnAngleStep: 0.7
   numEnemiesInside: 3
+  targetColor: {r: 0, g: 0.28014588, b: 1, a: 1}
+  startColor: {r: 0.38861695, g: 0.45987114, b: 0.6698113, a: 1}
   enemyInside: {fileID: 1399737481222844, guid: d3d54f938cba4415c950e1a51b1282f4,
     type: 2}
 --- !u!114 &114792562629154204
