@@ -32,12 +32,14 @@ public class Manager : MonoBehaviour {
 
 
     void Awake(){
-        DontDestroyOnLoad(this.gameObject);
+        
  
         //Debug.Log("awoken");
         if (me == null){
+            
             Debug.Log("I was created");
             me = this;
+            //DontDestroyOnLoad(this.gameObject);
         }
         else{
   
