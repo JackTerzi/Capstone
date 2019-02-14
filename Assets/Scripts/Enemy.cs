@@ -23,7 +23,6 @@ public class Enemy {
         this.enem = me;
         this.randomShoot = Time.time + Random.Range(2f, 6f);
         this.canShoot = canShoot;
-        Manager.me.numEnemiesOnScreen++;
         player = Manager.me.player;
 
     }
@@ -34,24 +33,25 @@ public class Enemy {
         this.speed = speed;
         this.enem = me;
         this.randomShoot = Time.time + Random.Range(2f, 6f);
-        Manager.me.numEnemiesOnScreen++;
         player = Manager.me.player;
 
     }
+
+    
     public Enemy(Rigidbody2D me, bool cS)
     {
         this.enem = me;
         this.randomShoot = Time.time + Random.Range(2f, 6f);
         this.canShoot = cS;
-        Manager.me.numEnemiesOnScreen++;
-
         player = Manager.me.player;
 
     }
 
 
     public void Movement(){
-        this.enem.transform.right = player.transform.position - this.enem.transform.position;
+        if (player != null){
+            this.enem.transform.right = player.transform.position - this.enem.transform.position;
+        }
     }
 
 
