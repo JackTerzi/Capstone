@@ -2,64 +2,71 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class W1L1 : MonoBehaviour {
+public class W1L1 : MonoBehaviour
+{
 
-	public float popUp1DelayTime, // should equal the time it takes for the first enemy to completely spawn
-				 popUp1AnimTime,
-				// popUp2DelayTime,
-			// popUp2AnimTime,
-				 //timeBeforePopUp2Reappears,
-				 numOfSpaceShips; // including the first 1 for tutorial
-	
-	float timer;
+    public float popUp1DelayTime, // should equal the time it takes for the first enemy to completely spawn
+                 popUp1AnimTime,
+                 // popUp2DelayTime,
+                 // popUp2AnimTime,
+                 //timeBeforePopUp2Reappears,
+                 numOfSpaceShips; // including the first 1 for tutorial
+
+    float timer;
     public Animator Hand;
-	public GameObject enemySpaceShip,
-					  popUp1,
-					//  popUp2,
-					  greyOut,
-					  nextLevelArrow,
-					  door;
-	
-	bool finishedPart1,
-		 finishedPart2,
-		 //alreadyShowedPopUp2,
-		 finishedLevel;
+    public GameObject enemySpaceShip,
+                      popUp1,
+                      //  popUp2,
+                      greyOut,
+                      nextLevelArrow,
+                      door;
 
-	public Vector2 playerStartPos,
-				   enemy1StartPos,
-				   enemy2StartPos;
+    bool finishedPart1,
+         finishedPart2,
+         //alreadyShowedPopUp2,
+         finishedLevel;
 
-
-	void Awake () {
-			Manager.me.player = (GameObject) Instantiate(Manager.me.playerPrefab, playerStartPos, Quaternion.identity);
-			popUp1.SetActive(false);
-			//popUp2.SetActive(false);
-		
-	}
+    public Vector2 playerStartPos,
+                   enemy1StartPos,
+                   enemy2StartPos;
 
 
-	void Start(){
-		GameObject enemyShipToSpawn;
-		if (!Manager.me.finishedTutorial){
-			enemyShipToSpawn = Manager.me.spaceShipTutorialPrefab;
-			Manager.me.playerShouldDash = false;
-			Manager.me.playerShouldShoot = false;
-		}
-		else{
-			enemyShipToSpawn = Manager.me.spaceShipBasicPrefab;
-			Manager.me.playerShouldDash = true;
-			Manager.me.playerShouldShoot = true;
-		}
+    void Awake()
+    {
+        Manager.me.player = (GameObject)Instantiate(Manager.me.playerPrefab, playerStartPos, Quaternion.identity);
+        popUp1.SetActive(false);
+        //popUp2.SetActive(false);
 
-		if (!Manager.me.finishedTutorial){
-			Manager.me.SpawnSpaceShip(enemyShipToSpawn, enemy1StartPos);
-		}
-
-		
-		timer = 0f;
-	}
+    }
 
 
+    void Start()
+    {
+        GameObject enemyShipToSpawn;
+        if (!Manager.me.finishedTutorial)
+        {
+            enemyShipToSpawn = Manager.me.spaceShipTutorialPrefab;
+            Manager.me.playerShouldDash = false;
+            Manager.me.playerShouldShoot = false;
+        }
+        else
+        {
+            enemyShipToSpawn = Manager.me.spaceShipBasicPrefab;
+            Manager.me.playerShouldDash = true;
+            Manager.me.playerShouldShoot = true;
+        }
+
+        if (!Manager.me.finishedTutorial)
+        {
+            Manager.me.SpawnSpaceShip(enemyShipToSpawn, enemy1StartPos);
+        }
+
+
+        timer = 0f;
+    }
+}
+
+    /*
 	void Update(){
 		timer += Time.unscaledDeltaTime;
 
@@ -149,7 +156,7 @@ public class W1L1 : MonoBehaviour {
 					Time.timeScale = 1f;
 					timer = 0f;
 					
-					}*/
+					}
 
 				if (Manager.me.activeEnemies.Count == 0 && Manager.me.activeSpaceShips.Count == 0){
 					finishedPart2 = true;
@@ -180,4 +187,7 @@ public class W1L1 : MonoBehaviour {
 	}
 
 
-}
+
+    }
+    */ 
+        
