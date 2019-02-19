@@ -6,9 +6,6 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/1-1 Tutorial.unity
-    guid: d77475efb54114821839d05ea2b8ec66
-  - enabled: 1
-    path: Assets/Scenes/Campaign.unity
-    guid: ce2da92295c9046388cf6f5450ca12bd
+    path: Assets/Scenes/Jack Test Scene.unity
+    guid: 4a1487b1b57da49b2bd4de445a605976
   m_configObjects: {}

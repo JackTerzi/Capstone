@@ -33,7 +33,7 @@ public class ExplosionScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        /*
+        
         Debug.Log("a");
         if (col.gameObject.tag == "Player")
         {
@@ -47,6 +47,6 @@ public class ExplosionScript : MonoBehaviour
             Debug.Log("here");
             col.gameObject.SendMessage("Hit", SendMessageOptions.DontRequireReceiver);
         }
-        */
+        
     }
 }
