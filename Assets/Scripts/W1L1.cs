@@ -2,62 +2,82 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class W1L1 : MonoBehaviour {
+public class W1L1 : MonoBehaviour
+{
 
-	public float popUp1DelayTime, // should equal the time it takes for the first enemy to completely spawn
-				 popUp1AnimTime,
-				 popUp2DelayTime,
-				 popUp2AnimTime,
-				 timeBeforePopUp2Reappears,
-				 numOfSpaceShips; // including the first 1 for tutorial
-	
-	float timer;
+    public float popUp1DelayTime, // should equal the time it takes for the first enemy to completely spawn
+                 popUp1AnimTime,
+                 // popUp2DelayTime,
+                 // popUp2AnimTime,
+                 //timeBeforePopUp2Reappears,
+                 numOfSpaceShips; // including the first 1 for tutorial
 
-	public GameObject playerPrefab,
-					  enemySpaceShip,
-					  popUp1,
-					  popUp2,
-					  greyOut,
-					  nextLevelArrow,
-					  door;
+    float timer;
+    public Animator Hand;
+    public GameObject enemySpaceShip,
+                      popUp1,
+                      //  popUp2,
+                      greyOut,
+                      nextLevelArrow,
+                      door;
 
-	GameObject player;
-	
-	bool finishedPart1,
-		 finishedPart2,
-		 alreadyShowedPopUp2,
-		 finishedLevel;
+    bool finishedPart1,
+         finishedPart2,
+         //alreadyShowedPopUp2,
+         finishedLevel;
 
-	public Vector2 playerStartPos,
-				   enemy1StartPos,
-				   enemy2StartPos;
+    public Vector2 playerStartPos,
+                   enemy1StartPos,
+                   enemy2StartPos;
 
 
-	void Awake () {
-			player = (GameObject) Instantiate(playerPrefab, playerStartPos, Quaternion.identity);
-			popUp1.SetActive(false);
-			popUp2.SetActive(false);
-		
-	}
+    void Awake()
+    {
+        Manager.me.player = (GameObject)Instantiate(Manager.me.playerPrefab, playerStartPos, Quaternion.identity);
+        popUp1.SetActive(false);
+        //popUp2.SetActive(false);
+
+    }
 
 
-	void Start(){
-		Manager.me.SpawnSpaceShipTutorial(enemy1StartPos);
-		Manager.me.playerShouldDash = false;
-		Debug.Log(Manager.me.playerShouldDash);
-		Manager.me.playerShouldShoot = false;
-		timer = 0f;
-	}
+    void Start()
+    {
+        GameObject enemyShipToSpawn;
+        if (!Manager.me.finishedTutorial)
+        {
+            enemyShipToSpawn = Manager.me.spaceShipTutorialPrefab;
+            Manager.me.playerShouldDash = false;
+            Manager.me.playerShouldShoot = false;
+        }
+        else
+        {
+            enemyShipToSpawn = Manager.me.spaceShipBasicPrefab;
+            Manager.me.playerShouldDash = true;
+            Manager.me.playerShouldShoot = true;
+        }
+
+        if (!Manager.me.finishedTutorial)
+        {
+            Manager.me.SpawnSpaceShip(enemyShipToSpawn, enemy1StartPos);
+        }
 
 
+        timer = 0f;
+    }
+}
+
+    /*
 	void Update(){
-		timer+= Time.unscaledDeltaTime;
+		timer += Time.unscaledDeltaTime;
 
 		if (!Manager.me.finishedTutorial){
 			Tutorial();
 		}
 		else if (!finishedLevel){
-			WaveEnemies();
+			if (Manager.me != null){
+				WaveEnemies();
+			}
+			
 		}
 		else{
 			ActivateNextLevel();
@@ -69,11 +89,12 @@ public class W1L1 : MonoBehaviour {
 		if (!finishedPart1){
 
 			if (timer > popUp1DelayTime){
-				Debug.Log("timer flag passed: " + Time.unscaledTime.ToString());
+				//Debug.Log("timer flag passed: " + Time.unscaledTime.ToString());
 				if (!popUp1.activeSelf){
-					Debug.Log("popup1 active flag passed: " + Time.unscaledTime.ToString());
+					//Debug.Log("popup1 active flag passed: " + Time.unscaledTime.ToString());
 					popUp1.SetActive(true);
-					greyOut.SetActive(true);
+                    //greyOut.SetActive(true);
+                    Hand.SetBool("Walk", true);
 					Time.timeScale = 0f; 
 					timer = 0f;
 					Manager.me.playerShouldDash = true;
@@ -84,7 +105,7 @@ public class W1L1 : MonoBehaviour {
 
 			//if (popUp1.activeSelf && (timer > popUp1AnimTime || Manager.me.playerSwiped)){
 			if (popUp1.activeSelf && (Manager.me.playerSwiped)){
-				Debug.Log("popup1 active and playerSwiped flag passed: " + Time.unscaledTime.ToString());
+				//Debug.Log("popup1 active and playerSwiped flag passed: " + Time.unscaledTime.ToString());
 				popUp1.SetActive(false);
 				greyOut.SetActive(false);
 				Time.timeScale = 1f;
@@ -94,7 +115,7 @@ public class W1L1 : MonoBehaviour {
 			}
 
 		}
-
+        /*
 		else if(!finishedPart2){
 
 			if (!alreadyShowedPopUp2){ // first time showing pop up 2
@@ -137,10 +158,10 @@ public class W1L1 : MonoBehaviour {
 					
 					}
 
-				if (Manager.me.score == 1){
+				if (Manager.me.activeEnemies.Count == 0 && Manager.me.activeSpaceShips.Count == 0){
 					finishedPart2 = true;
 					Manager.me.finishedTutorial = true;
-					Debug.Log("finished tutorial");
+					//Debug.Log("finished tutorial");
 				}  
 			}
 		}			
@@ -150,7 +171,7 @@ public class W1L1 : MonoBehaviour {
 	void WaveEnemies(){
 		// spawns spaceships until numOfSpaceShips reached
 		if (Manager.me.numSpaceShipsSpawned < numOfSpaceShips && Manager.me.activeSpaceShips.Count == 0 && Manager.me.numEnemiesOnScreen == 0){
-			Manager.me.SpawnSpaceShipBasic(enemy2StartPos);
+			Manager.me.SpawnSpaceShip(Manager.me.spaceShipBasicPrefab, enemy2StartPos);
 		}
 		if (numOfSpaceShips == Manager.me.numSpaceShipsSpawned && Manager.me.activeEnemies.Count == 0 && Manager.me.activeSpaceShips.Count == 0){
 			Debug.Log("finished level");
@@ -166,4 +187,7 @@ public class W1L1 : MonoBehaviour {
 	}
 
 
-}
+
+    }
+    */ 
+        
