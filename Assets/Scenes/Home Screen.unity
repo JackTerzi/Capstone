@@ -274,8 +274,10 @@ MonoBehaviour:
   - {fileID: 1367156223}
   - {fileID: 1168386353}
   - {fileID: 1392615547}
-  tileXStep: 150
-  tileYStep: 150
+  tileXStep: 200
+  tileYStep: 300
+  centerXOffset: 0
+  centerYOffset: -100
 --- !u!1 &573653726
 GameObject:
   m_ObjectHideFlags: 0
