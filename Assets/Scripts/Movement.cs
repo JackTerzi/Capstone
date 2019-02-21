@@ -7,38 +7,40 @@ public class Movement : MonoBehaviour{
 
     Animator movementAnimator;
 
-	Rigidbody2D rb;
+	Rigidbody rb;
 
 	Vector3 startPos,
-		moveDirection,
-		previousMoveDirection;
+		    moveDirection,
+		    previousMoveDirection;
 
     int frameCount;
 
 	bool addVelocity;
 
 	public float speed,
-		sameDirCheck,
-		maxSpeed,
-		addedSpeed,
-		dragMagnitude,
-        runAnimSpeed,
-        walkAnimSpeed,
-        numBullets,
-        shotgunOffset;
+                 sameDirCheck,
+                 maxSpeed,
+                 addedSpeed,
+                 dragMagnitude,
+                 runAnimSpeed,
+                 walkAnimSpeed,
+                 numBullets,
+                 shotgunOffset;
 
-    float 
-		lookAngle,
-		previousAngle;
+    float lookAngle,
+		  previousAngle;
 
     public GameObject bullet,
                       fire;
 
 
 	void Start (){
-		rb = GetComponent<Rigidbody2D> ();
+		rb = GetComponent<Rigidbody> ();
         movementAnimator = GetComponent<Animator>();
 		previousMoveDirection = Vector3.zero;
+
+        Vector3 newVec = Vector2to3(new Vector2(2,1));
+        Debug.Log(newVec);
 
 	}
 	
@@ -52,7 +54,7 @@ public class Movement : MonoBehaviour{
 			case TouchPhase.Began:
 				
 				startPos = Vector2to3(touch.position);
-                    Debug.Log(startPos);
+                    //Debug.Log(startPos);
 				
 				break;
 			
@@ -60,7 +62,7 @@ public class Movement : MonoBehaviour{
                     if (frameCount > 10)
                     {
                         lookAngle = Geo.ToAng3(startPos, Vector2to3(touch.position));
-                        Debug.Log(lookAngle);
+                        //Debug.Log(lookAngle);
                     }
                     break;
 			
@@ -83,7 +85,8 @@ public class Movement : MonoBehaviour{
                         Shoot();
                     }
                     if (frameCount <10 && (moveDirection.normalized - previousMoveDirection.normalized).magnitude < sameDirCheck && (moveDirection - previousMoveDirection).magnitude > 1) {
-    					addVelocity = true;
+    					//Debug.Log("vroom vroom");
+                        addVelocity = true;
                         previousMoveDirection = moveDirection;
                     }
     				previousAngle = lookAngle;
@@ -97,6 +100,7 @@ public class Movement : MonoBehaviour{
 
 
 	void FixedUpdate (){
+        //Debug.Log(speed);
         if (Manager.me.playerShouldDash){
             float drag;
             if (speed > 1)
@@ -104,10 +108,11 @@ public class Movement : MonoBehaviour{
             else
                 drag = dragMagnitude;
             if (addVelocity && speed < maxSpeed) {
-                //Manager.me.playerSwiped = true;
+                //Debug.Log("we goin fast");
                 speed += addedSpeed;
                 addVelocity = false;
-            } else {
+            } 
+            else {
                 Manager.me.playerSwiped = false;
                 speed -= drag;
 
@@ -116,9 +121,11 @@ public class Movement : MonoBehaviour{
                 speed = maxSpeed;
             }
 
-            AnimCheck();
-            rb.MoveRotation(Mathf.LerpAngle(Geo.ToAng3(transform.up), lookAngle, .35f));
-            rb.MovePosition (transform.position +  transform.right * speed * Time.fixedDeltaTime);
+                AnimCheck();
+                //rb.MoveRotation(Mathf.LerpAngle(Geo.ToAng3(transform.up), lookAngle, .35f));
+                transform.eulerAngles = new Vector3(0, lookAngle, 0);
+                rb.MovePosition (transform.position +  transform.right * speed * Time.fixedDeltaTime);
+
         }
 
 	}
@@ -187,10 +194,8 @@ public class Movement : MonoBehaviour{
         Manager.me.isGameOver = true;
     }
 
-    Vector3 Vector2to3(Vector2 ourVec)
+    Vector3 Vector2to3(Vector2 vec2)
     {
-        Vector3 newVec;
-        newVec = new Vector3(ourVec.x, 0, ourVec.y);
-        return newVec;
+        return new Vector3(vec2.x, 0, vec2.y);
     }
 }

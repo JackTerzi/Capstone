@@ -101,8 +101,8 @@ public class Manager : MonoBehaviour {
         }
 
         //numSpaceShipsSpawned++;
-        Debug.Log(numSpaceShipsSpawned);
-        Debug.Log(this.gameObject.name);
+        //Debug.Log(numSpaceShipsSpawned);
+        //Debug.Log(this.gameObject.name);
     }
 
 
