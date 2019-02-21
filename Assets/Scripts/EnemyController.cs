@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour {
     void Start () {   
         enemy  = new Enemy(this.GetComponent<Rigidbody2D>(), 1, 1, canShoot);
         spr = GetComponent<SpriteRenderer>();
-	Manager.me.activeEnemies.Add(this.gameObject);
+	    Manager.me.activeEnemies.Add(this.gameObject);
 	}
 
 
