@@ -312,4 +312,18 @@ public class Geo : MonoBehaviour {
         float s = Vector3.Dot(crossVec3and2, crossVec1and2) / crossVec1and2.sqrMagnitude;
         return linePoint1 + (lineVec1 * s);
     }
+    public static float ToAng3(Vector3 a, Vector3 b)
+    {
+        Vector2 a2 = new Vector2(a.x, a.z);
+        Vector2 b2 = new Vector2(b.x, b.z);
+
+        return ToAng(b2 - a2);
+    }
+    public static float ToAng3(Vector3 a)
+    {
+        Vector2 a2 = new Vector2(a.x, a.z);
+       
+        return ToAng(a2);
+    }
+
 }
