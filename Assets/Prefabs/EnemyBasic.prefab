@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 61463889253151592}
   - component: {fileID: 50959465642115292}
   - component: {fileID: 114270006161640614}
-  - component: {fileID: 195147347191548040}
   m_Layer: 8
   m_Name: EnemyBasic
   m_TagString: Enemy
@@ -102,31 +101,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyBullet: {fileID: 1099632510559916, guid: 39c1e70b6f9da4d3aa7da6f3be3ffc22,
     type: 2}
-  startColor: {r: 1, g: 0.69411767, b: 0, a: 1}
-  flashColor: {r: 1, g: 0, b: 0, a: 1}
+  startColor: {r: 0.909804, g: 0.40000004, b: 0.39607847, a: 1}
+  flashColor: {r: 0.9528302, g: 0.63372195, b: 0.683806, a: 1}
   chargeSpeed: 0.5
   canShoot: 1
---- !u!195 &195147347191548040
-NavMeshAgent:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1399737481222844}
-  m_Enabled: 1
-  m_AgentTypeID: 0
-  m_Radius: 0.5
-  m_Speed: 3.5
-  m_Acceleration: 8
-  avoidancePriority: 50
-  m_AngularSpeed: 120
-  m_StoppingDistance: 0
-  m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
-  m_AutoRepath: 1
-  m_Height: 0.38
-  m_BaseOffset: 0
-  m_WalkableMask: 4294967295
-  m_ObstacleAvoidanceType: 4
 --- !u!212 &212446800188815944
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -163,7 +141,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 286ae33a5e5b74dc2af9e65215e5b031, type: 3}
-  m_Color: {r: 1, g: 0.69389254, b: 0, a: 1}
+  m_Color: {r: 0.9098039, g: 0.4, b: 0.39607844, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

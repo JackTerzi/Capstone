@@ -9,7 +9,7 @@ public class Movement : MonoBehaviour{
 
 	Rigidbody2D rb;
 
-	Vector3 startPos,
+	Vector2 startPos,
 		moveDirection,
 		previousMoveDirection;
 
@@ -51,7 +51,7 @@ public class Movement : MonoBehaviour{
 
 			case TouchPhase.Began:
 				
-				startPos = Vector2to3(touch.position);
+				startPos = (touch.position);
                     Debug.Log(startPos);
 				
 				break;
@@ -59,27 +59,27 @@ public class Movement : MonoBehaviour{
 			case TouchPhase.Stationary:
                     if (frameCount > 10)
                     {
-                        lookAngle = Geo.ToAng3(startPos, Vector2to3(touch.position));
+                        lookAngle = Geo.ToAng(startPos, touch.position);
                         Debug.Log(lookAngle);
                     }
                     break;
 			
 			case TouchPhase.Moved:
-			        if (Mathf.Abs (lookAngle - previousAngle) < 160 && (Vector2to3(touch.position) - startPos).magnitude > 4) {
-				        moveDirection = Vector2to3(touch.position) - startPos;
-                        lookAngle = Geo.ToAng3(startPos, Vector2to3(touch.position));
+			        if (Mathf.Abs (lookAngle - previousAngle) < 160 && (touch.position - startPos).magnitude > 4) {
+				        moveDirection = (touch.position) - startPos;
+                        lookAngle = Geo.ToAng(startPos, (touch.position));
                     }
                     else{
                        
                     }
                     if(frameCount > 10){
-                        lookAngle = Geo.ToAng3(startPos, Vector2to3(touch.position));
+                        lookAngle = Geo.ToAng(startPos, (touch.position));
                     }
 
 				break;
 
 			case TouchPhase.Ended:
-                    if((Vector2to3(touch.position) - startPos).magnitude < 8){
+                    if(((touch.position) - startPos).magnitude < 8){
                         Shoot();
                     }
                     if (frameCount <10 && (moveDirection.normalized - previousMoveDirection.normalized).magnitude < sameDirCheck && (moveDirection - previousMoveDirection).magnitude > 1) {
@@ -117,7 +117,7 @@ public class Movement : MonoBehaviour{
             }
 
             AnimCheck();
-            rb.MoveRotation(Mathf.LerpAngle(Geo.ToAng3(transform.up), lookAngle, .35f));
+            rb.MoveRotation(Mathf.LerpAngle(Geo.ToAng(transform.right), lookAngle, .35f));
             rb.MovePosition (transform.position +  transform.right * speed * Time.fixedDeltaTime);
         }
 
@@ -174,7 +174,7 @@ public class Movement : MonoBehaviour{
                 float power = Mathf.Pow(-1, i);
                 bulletSpawnAng = (i / numBullets) * 20f * power;
                 bulletSpawnPos = (i / numBullets) * .3f * power;
-                Instantiate(bullet, transform.position + gameObject.transform.up.normalized * shotgunOffset + Geo.PerpVect(gameObject.transform.up, true) * bulletSpawnPos, Quaternion.Euler(0, 0, Geo.ToAng3(gameObject.transform.up) - bulletSpawnAng));
+                Instantiate(bullet, transform.position + gameObject.transform.right.normalized * shotgunOffset + Geo.PerpVect(gameObject.transform.right, true) * bulletSpawnPos, Quaternion.Euler(0, 0, Geo.ToAng(gameObject.transform.right) - bulletSpawnAng));
             }
 
             movementAnimator.SetBool("isShooting", false);
@@ -187,10 +187,10 @@ public class Movement : MonoBehaviour{
         Manager.me.isGameOver = true;
     }
 
-    Vector3 Vector2to3(Vector2 ourVec)
-    {
-        Vector3 newVec;
-        newVec = new Vector3(ourVec.x, 0, ourVec.y);
-        return newVec;
-    }
+    //Vector3 Vector2to3(Vector2 ourVec)
+    //{
+    //    Vector3 newVec;
+    //    newVec = new Vector3(ourVec.x, 0, ourVec.y);
+    //    return newVec;
+    //}
 }

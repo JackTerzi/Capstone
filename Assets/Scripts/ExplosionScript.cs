@@ -33,14 +33,13 @@ public class ExplosionScript : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
-        
-        Debug.Log("a");
+        Debug.Log("Hello");
+
         if (col.gameObject.tag == "Player")
         {
            //Destroy(col.gameObject);
             Manager.me.isGameOver = true;
-            Debug.Log("ended");
-            Destroy(gameObject);
+            Destroy(col.gameObject);
         }
         if (LayerMask.LayerToName(col.gameObject.layer) == "Enemy")
         {

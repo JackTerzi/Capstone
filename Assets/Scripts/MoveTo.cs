@@ -14,13 +14,6 @@ public class MoveTo : MonoBehaviour {
 	
 
 	void Update () {
-		if (Mathf.Abs(Vector2.Distance(GameObject.FindGameObjectWithTag("Player").transform.position, transform.position )) < .1f){
-			GetComponent<UnityEngine.AI.NavMeshAgent>().destination = transform.position;
-			Debug.Log("close enough");
-		}
-		else{
-			Debug.Log("not close enough");
-			GetComponent<UnityEngine.AI.NavMeshAgent>().destination = GameObject.FindGameObjectWithTag("Player").transform.position;
-		}
+
 	}
 }
