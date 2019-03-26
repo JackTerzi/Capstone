@@ -21,22 +21,19 @@ public class SuicideEnemy : MonoBehaviour {
     void Start () {
         rb = GetComponent<Rigidbody2D>();
         enem = new Enemy(rb, false);
+        shouldRun = true;
         //GetComponent<UnityEngine.AI.NavMeshAgent>().destination = Manager.me.player.transform.position;
 	}
 	
 
 	void Update () {
-        if (!shouldRun){
-            timer += Time.deltaTime;
-            if (timer >= explodeDelayTime){
-                shouldRun = true;
-            }
-        }
+           
+
 	}
 
 
     void FixedUpdate(){
-        if (shouldRun){
+        if (shouldRun && Utility.IsDefined(Manager.me.player)){
             playerPos = Manager.me.player.transform.position;
             transform.eulerAngles = new Vector3(0f,0f,Geo.ToAng(transform.position, playerPos));
             rb.MovePosition(transform.position + transform.right * runSpeed * Time.fixedDeltaTime);
@@ -50,10 +47,9 @@ public class SuicideEnemy : MonoBehaviour {
 
 
     void OnTriggerEnter2D(Collider2D col){
-
         if(col.gameObject.tag == "Player"){
+            shouldRun = false;
             GameObject expl = Instantiate(explotionEffect, gameObject.transform.position, Quaternion.identity);
-            Manager.me.isGameOver = true;
             //Destroy(gameObject);
         }
     }

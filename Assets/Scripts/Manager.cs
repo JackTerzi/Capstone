@@ -10,8 +10,6 @@ public class Manager : MonoBehaviour {
 
     public GameObject player,
                       playerPrefab,
-                      spaceShipTutorialPrefab,
-                      spaceShipBasicPrefab,
                       enemyBasicPrefab,
                       enemySuicidePrefab;
 
@@ -20,7 +18,8 @@ public class Manager : MonoBehaviour {
 
     public int score,
                numSpaceShipsSpawned,
-               numEnemiesOnScreen;
+               numEnemiesOnScreen,
+               level;
 
     public bool isGameOver,
                 playerShouldShoot,
@@ -37,14 +36,11 @@ public class Manager : MonoBehaviour {
         //Debug.Log("awoken");
         if (me == null){
             
-            Debug.Log("I was created");
             me = this;
-            //DontDestroyOnLoad(this.gameObject);
+            DontDestroyOnLoad(this.gameObject);
         }
         else{
   
-            Debug.Log("I was destroyed");
-            isGameOver = false;
             Destroy(this.gameObject);
         }
 
@@ -55,6 +51,7 @@ public class Manager : MonoBehaviour {
 
 
 	void Start () {
+        me.level = 1;
         me.isGameOver = false;
         me.player = GameObject.FindGameObjectWithTag("Player");
 	}
@@ -65,45 +62,43 @@ public class Manager : MonoBehaviour {
             player = GameObject.FindGameObjectWithTag("Player");
         }
 
-        numEnemiesOnScreen = activeEnemies.Count;
+       // numEnemiesOnScreen = activeEnemies.Count;
 
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended){
-            playerSwiped = true;
-        }
-        else{
-            playerSwiped = false;
-        }
+        //if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Ended){
+        //    playerSwiped = true;
+        //}
+        //else{
+        //    playerSwiped = false;
+        //}
 
         if (isGameOver){
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
             me.isGameOver = false;
             me.score = 0;
             me.activeEnemies = new List<GameObject>();
-            me.activeSpaceShips = new List<GameObject>();
+           // me.activeSpaceShips = new List<GameObject>();
             me.numEnemiesOnScreen = 0;
-            me.numSpaceShipsSpawned = 0;
+           // me.numSpaceShipsSpawned = 0;
 
         }
 	}
 
 
 
-    public void SpawnSpaceShip(GameObject spaceShip, Vector2 spawnPos){
-        GameObject newSpaceShip = (GameObject) Instantiate(spaceShip, new Vector2(spawnPos.x, spawnPos.y), Quaternion.identity);
-        activeSpaceShips.Add(newSpaceShip);
-        Debug.Log("spawned ship: " + newSpaceShip.gameObject.name);
+    //public void SpawnSpaceShip(GameObject spaceShip, Vector2 spawnPos){
+    //    GameObject newSpaceShip = (GameObject) Instantiate(spaceShip, new Vector2(spawnPos.x, spawnPos.y), Quaternion.identity);
+    //    activeSpaceShips.Add(newSpaceShip);
+    //    Debug.Log("spawned ship: " + newSpaceShip.gameObject.name);
 
-        if (Time.timeSinceLevelLoad < 1f){
-            numSpaceShipsSpawned = 1;
-        }
-        else{
-            numSpaceShipsSpawned ++;
-        }
+    //    if (Time.timeSinceLevelLoad < 1f){
+    //        numSpaceShipsSpawned = 1;
+    //    }
+    //    else{
+    //        numSpaceShipsSpawned ++;
+    //    }
 
-        //numSpaceShipsSpawned++;
-        Debug.Log(numSpaceShipsSpawned);
-        Debug.Log(this.gameObject.name);
-    }
+
+    //}
 
 
     public static void LoadLevel(string level){
