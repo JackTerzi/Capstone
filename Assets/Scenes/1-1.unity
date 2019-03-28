@@ -445,7 +445,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 382064215}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b047324ac8b7b435fa35f1d08c8104af, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1171,7 +1171,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1496648003}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b047324ac8b7b435fa35f1d08c8104af, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1454,7 +1454,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1741147017}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b047324ac8b7b435fa35f1d08c8104af, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1630,7 +1630,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1874040424}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: b047324ac8b7b435fa35f1d08c8104af, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -1715,3 +1715,4 @@ MonoBehaviour:
   enemy4: {fileID: 0}
   enemy5: {fileID: 0}
   spawnTime: 3
+  enemyBag: []
