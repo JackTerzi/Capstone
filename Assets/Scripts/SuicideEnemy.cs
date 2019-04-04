@@ -16,12 +16,13 @@ public class SuicideEnemy : MonoBehaviour {
     Rigidbody2D rb;
     Enemy enem;
     public GameObject explotionEffect;
-
+    public SpriteRenderer glowEffect;
+    Color tempColor;
 
     void Start () {
         rb = GetComponent<Rigidbody2D>();
         enem = new Enemy(rb, false);
-
+        tempColor = glowEffect.color;
         //GetComponent<UnityEngine.AI.NavMeshAgent>().destination = Manager.me.player.transform.position;
 	}
 	
@@ -45,7 +46,9 @@ public class SuicideEnemy : MonoBehaviour {
         else
         {
             detonateTimer -= Time.deltaTime;
-
+            tempColor.a = 1 - Mathf.Pow(detonateTimer, 2);
+            Debug.Log(tempColor);
+            glowEffect.color = tempColor;
         }
 
     }
