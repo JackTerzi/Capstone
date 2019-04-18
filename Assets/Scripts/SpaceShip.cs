@@ -1,104 +1,104 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+//using System.Collections;
+//using System.Collections.Generic;
+//using UnityEngine;
 
-public class SpaceShip : MonoBehaviour {
+//public class SpaceShip : MonoBehaviour {
 
-    public float maxSize,
-                 timeToReachMaxSize,
-                 timeBetweenEnemySpawns,
-                 enemySpawnRadius,
-                 enemySpawnAngleStep;
+//    public float maxSize,
+//                 timeToReachMaxSize,
+//                 timeBetweenEnemySpawns,
+//                 enemySpawnRadius,
+//                 enemySpawnAngleStep;
 
-    float timer,
-         spawnTime,
-          firstEnemySpawnAngle;
+//    float timer,
+//         spawnTime,
+//          firstEnemySpawnAngle;
 
-    public int numEnemiesInside;
+//    public int numEnemiesInside;
 
-    int numEnemiesSpawned,
-        spawnDirection;
+//    int numEnemiesSpawned,
+//        spawnDirection;
 
-    SpriteRenderer spr;
+//    SpriteRenderer spr;
 
-    public Color targetColor,
-                 startColor;
+//    public Color targetColor,
+//                 startColor;
 
-    CircleCollider2D col;
+//    CircleCollider2D col;
 
-    bool shipLanded,
-         spawnedAllEnemies;
+//    bool shipLanded,
+//         spawnedAllEnemies;
 
-    public GameObject enemyInside;
+//    public GameObject enemyInside;
 
-    Bashable bsh;
+//    Bashable bsh;
 
 
-	void Start () {
-        spr = GetComponent<SpriteRenderer>();
-        col = GetComponent<CircleCollider2D>();
-        bsh = GetComponent<Bashable>();
-        spawnTime = Time.time;
-	}
+//	void Start () {
+//        spr = GetComponent<SpriteRenderer>();
+//        col = GetComponent<CircleCollider2D>();
+//        bsh = GetComponent<Bashable>();
+//        spawnTime = Time.time;
+//	}
 	
 
-    void Update () {
-        timer += Time.deltaTime;
+//    void Update () {
+//        timer += Time.deltaTime;
 
-        if(transform.localScale.x < maxSize){
-            transform.localScale = new Vector2(maxSize * (Time.time - spawnTime), maxSize * (Time.time - spawnTime));
-        }
-        else{
-            //transform.localScale = new Vector2(maxSize, maxSize);
-            Vector2 newEnemySpawnPos;
+//        if(transform.localScale.x < maxSize){
+//            transform.localScale = new Vector2(maxSize * (Time.time - spawnTime), maxSize * (Time.time - spawnTime));
+//        }
+//        else{
+//            //transform.localScale = new Vector2(maxSize, maxSize);
+//            Vector2 newEnemySpawnPos;
 
-            if (!spawnedAllEnemies)
-            {                
-                if (numEnemiesSpawned == 0){
-                    spr.color = startColor;
-                    firstEnemySpawnAngle = Random.Range(0f,2f * Mathf.PI);
-                    float f = Random.Range(0f,1f);
-                    if (f < .5f){
-                        spawnDirection = 1;
-                    }
-                    else{
-                        spawnDirection = -1;
-                    }
-                }
+//            if (!spawnedAllEnemies)
+//            {                
+//                if (numEnemiesSpawned == 0){
+//                    spr.color = startColor;
+//                    firstEnemySpawnAngle = Random.Range(0f,2f * Mathf.PI);
+//                    float f = Random.Range(0f,1f);
+//                    if (f < .5f){
+//                        spawnDirection = 1;
+//                    }
+//                    else{
+//                        spawnDirection = -1;
+//                    }
+//                }
 
-                if (timer > timeBetweenEnemySpawns){
-                    newEnemySpawnPos.x = enemySpawnRadius * Mathf.Cos(firstEnemySpawnAngle + spawnDirection * enemySpawnAngleStep * numEnemiesSpawned);
-                    newEnemySpawnPos.y = enemySpawnRadius * Mathf.Sin(firstEnemySpawnAngle + spawnDirection * enemySpawnAngleStep * numEnemiesSpawned);
-                    newEnemySpawnPos += (Vector2) transform.position;
+//                if (timer > timeBetweenEnemySpawns){
+//                    newEnemySpawnPos.x = enemySpawnRadius * Mathf.Cos(firstEnemySpawnAngle + spawnDirection * enemySpawnAngleStep * numEnemiesSpawned);
+//                    newEnemySpawnPos.y = enemySpawnRadius * Mathf.Sin(firstEnemySpawnAngle + spawnDirection * enemySpawnAngleStep * numEnemiesSpawned);
+//                    newEnemySpawnPos += (Vector2) transform.position;
 
-                    GameObject newEnemy = (GameObject) Instantiate(enemyInside, newEnemySpawnPos, Quaternion.identity);
-                    //Manager.me.activeEnemies.Add(newEnemy);
-                    numEnemiesSpawned++;
-                    timer = 0f;
+//                    GameObject newEnemy = (GameObject) Instantiate(enemyInside, newEnemySpawnPos, Quaternion.identity);
+//                    //Manager.me.activeEnemies.Add(newEnemy);
+//                    numEnemiesSpawned++;
+//                    timer = 0f;
                     
-                }
+//                }
                 
-                if (numEnemiesInside == numEnemiesSpawned){
-                    spawnedAllEnemies = true;
-                    col.enabled = true;
-                    bsh.enabled = true;
-                    spr.color = targetColor;
-                }
+//                if (numEnemiesInside == numEnemiesSpawned){
+//                    spawnedAllEnemies = true;
+//                    col.enabled = true;
+//                    bsh.enabled = true;
+//                    spr.color = targetColor;
+//                }
 
-            }
-        }
-    }
-
-
-    void Hit(){
-        Manager.me.activeSpaceShips.Remove(this.gameObject);
-        Destroy(gameObject);
-    }
+//            }
+//        }
+//    }
 
 
-    void OnDestroy(){
-        Manager.me.activeSpaceShips.Remove(this.gameObject);
+//    void Hit(){
+//        Manager.me.activeSpaceShips.Remove(this.gameObject);
+//        Destroy(gameObject);
+//    }
+
+
+//    void OnDestroy(){
+//        Manager.me.activeSpaceShips.Remove(this.gameObject);
     
-    }
+//    }
 
-}
+//}
