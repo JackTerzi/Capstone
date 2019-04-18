@@ -23,7 +23,7 @@ public class EnemyController : MonoBehaviour {
     void Start () {   
         enemy  = new Enemy(this.GetComponent<Rigidbody2D>(), 1, 1, canShoot);
         spr = GetComponent<SpriteRenderer>();
-	Manager.me.activeEnemies.Add(this.gameObject);
+	
 	}
 
 
@@ -50,8 +50,12 @@ public class EnemyController : MonoBehaviour {
 
     void Hit(){
         Manager.me.score++;
-        Manager.me.activeEnemies.Remove(this.gameObject);
         Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        Manager.me.numEnemiesOnScreen--;
     }
 
 

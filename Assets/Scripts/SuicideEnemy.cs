@@ -47,7 +47,6 @@ public class SuicideEnemy : MonoBehaviour {
         {
             detonateTimer -= Time.deltaTime;
             tempColor.a = 1 - Mathf.Pow(detonateTimer, 2);
-            Debug.Log(tempColor);
             glowEffect.color = tempColor;
         }
 
@@ -76,7 +75,6 @@ public class SuicideEnemy : MonoBehaviour {
     void OnDestroy(){ 
         Manager.me.score++;
         Manager.me.numEnemiesOnScreen--;
-        Manager.me.activeEnemies.Remove(this.gameObject);
     }
 
 }

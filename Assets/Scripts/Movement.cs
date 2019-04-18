@@ -52,7 +52,6 @@ public class Movement : MonoBehaviour{
 			case TouchPhase.Began:
 				
 				startPos = (touch.position);
-                    Debug.Log(startPos);
 				
 				break;
 			
@@ -60,7 +59,6 @@ public class Movement : MonoBehaviour{
                     if (frameCount > 10)
                     {
                         lookAngle = Geo.ToAng(startPos, touch.position);
-                        Debug.Log(lookAngle);
                     }
                     break;
 			
