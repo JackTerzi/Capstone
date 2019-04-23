@@ -134,7 +134,9 @@ MonoBehaviour:
   runSpeed: 2
   detonateTimer: 4
   startRunTimer: 2
-  explotionEffect: {fileID: 1606565631460156, guid: f70ff5fc56eef442880ccd56feb100c6,
+  explotionEffect: {fileID: 1021577473143984, guid: 762fe7bb07f13d04d82f36dea1d462a2,
+    type: 2}
+  deathEffect: {fileID: 1954507264263488, guid: 185fbfd8f73a9b4468599cc3a7b8ff94,
     type: 2}
   glowEffect: {fileID: 212379026890658408}
 --- !u!212 &212379026890658408

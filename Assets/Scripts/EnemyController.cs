@@ -6,10 +6,10 @@ public class EnemyController : MonoBehaviour {
 
     Enemy enemy;
 
-    public GameObject enemyBullet;
+    public GameObject enemyBullet, deathEffect;
 
     SpriteRenderer spr;
-
+    public ParticleSystem ps;
     public Color startColor,
                  flashColor;
 
@@ -51,6 +51,8 @@ public class EnemyController : MonoBehaviour {
     void Hit(){
         Manager.me.score++;
         Destroy(gameObject);
+        Instantiate(deathEffect, transform.position, Quaternion.Euler(90, 0, 0));
+
     }
 
     private void OnDestroy()
