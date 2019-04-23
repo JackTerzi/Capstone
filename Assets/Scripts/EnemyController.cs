@@ -19,7 +19,7 @@ public class EnemyController : MonoBehaviour {
 
     public bool canShoot;
 
-    public AudioClip chargeSound, shootSound;
+    public AudioClip chargeSound, shootSound, hurtSound;
 
     void Start () {   
         enemy  = new Enemy(this.GetComponent<Rigidbody2D>(), 1, 1, canShoot);
@@ -58,12 +58,16 @@ public class EnemyController : MonoBehaviour {
         Manager.me.score++;
         Destroy(gameObject);
         Instantiate(deathEffect, transform.position, Quaternion.Euler(90, 0, 0));
+        Manager.me.numEnemiesOnScreen--;
+        if (Utility.IsDefined(hurtSound))
+        {
+            SoundManager.me.Play(hurtSound);
+        }
 
     }
 
     private void OnDestroy()
     {
-        Manager.me.numEnemiesOnScreen--;
     }
 
 
