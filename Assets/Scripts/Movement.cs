@@ -32,8 +32,10 @@ public class Movement : MonoBehaviour{
 		previousAngle;
 
     public GameObject bullet,
-                      fire;
+                      fire,
+                      deathEffect;
 
+    public AudioClip walkSound, runSound;
 
 	void Start (){
 		rb = GetComponent<Rigidbody2D> ();
@@ -130,11 +132,22 @@ public class Movement : MonoBehaviour{
         }
         else
         {
+            if (Utility.IsDefined(walkSound))
+            {
+                SoundManager.me.Play(walkSound);
+
+            }
             movementAnimator.SetBool("isIdle", false);
         }
 
         if (speed > runAnimSpeed)
         {
+            if (Utility.IsDefined(runSound))
+            {
+                SoundManager.me.Play(runSound);
+
+            }
+
             movementAnimator.SetBool("isRunning", true);
             if (Manager.me.playerShouldDash)
                 fire.SetActive(true);
@@ -182,6 +195,7 @@ public class Movement : MonoBehaviour{
 
 
     void OnDestroy(){
+        Instantiate(deathEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         Manager.me.isGameOver = true;
     }
 

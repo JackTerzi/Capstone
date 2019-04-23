@@ -45,7 +45,17 @@ public class Utility : MonoBehaviour {
             return false;
         }
     }
-
+    public static bool IsDefined(AudioClip obj)
+    {
+        if (obj != null)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 
 }

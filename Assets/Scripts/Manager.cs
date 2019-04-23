@@ -120,6 +120,7 @@ public class Manager : MonoBehaviour {
             me.runTransition = false;
             me.score = 0;
             me.level = 1;
+            me.LevelText.text = me.level.ToString();
             me.activeEnemies = GameObject.FindGameObjectsWithTag("Enemy");
             for(int i = 0; i<me.activeEnemies.Length; i++)
             {
@@ -155,10 +156,10 @@ public class Manager : MonoBehaviour {
         me.numEnemiesOnScreen = 0;
 
         textAnimator.Play("LevelCounter");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         LevelText.text = me.level.ToString();
         textAnimator.Play("LevelCounterReturn");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         // calculate number of enemies based on the level
         numEnemies = Manager.me.level * 2 + 5;
         // number of each enemy should be % based 
@@ -173,7 +174,7 @@ public class Manager : MonoBehaviour {
         Debug.Log("First Level Ran");
         yield return new WaitForSeconds(2);
         textAnimator.Play("LevelCounterReturn");
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(3);
         numEnemies = Manager.me.level * 2 + 5;
         // number of each enemy should be % based 
 
@@ -185,33 +186,33 @@ public class Manager : MonoBehaviour {
     }
     public void BagFiller(int nE)
     {
-        switch (Manager.me.level % 2)
+        switch (Manager.me.level % 4)
         {
             case 1:
                 // fill bag with 5 enemy 1s
-                //for (int i = 0; i < nE; i++)
-                //{
-                //    enemyBag.Add(enemy1);
-                //}
-                //break;
-                Debug.Log(nE);
                 for (int i = 0; i < nE; i++)
                 {
-                    if (i < nE * .6)
-                    {
-                        me.enemyBag.Add(enemy1);
-
-                    }
-                    else
-                    {
-                        me.enemyBag.Add(enemy2);
-
-                    }
+                    enemyBag.Add(enemy1);
                 }
                 break;
+                //Debug.Log(nE);
+                //for (int i = 0; i < nE; i++)
+                //{
+                //    if (i < nE * .6)
+                //    {
+                //        me.enemyBag.Add(enemy1);
+
+                //    }
+                //    else
+                //    {
+                //        me.enemyBag.Add(enemy2);
+
+                //    }
+                //}
+                //break;
 
 
-            case 0:
+            case 2:
                 //fill bag with 3 enemy 1s and 2 enemy 2s
                 for (int i = 0; i < nE; i++)
                 {
@@ -227,46 +228,31 @@ public class Manager : MonoBehaviour {
                     }
                 }
                 break;
-                //case 3:
-                //    // fill bag with 2 enemy 1s and 2 enemy 2s and 1 enemy 3
-                //    for (int i = 0; i < nE; i++)
-                //    {
-                //        if (i < nE * .4)
-                //        {
-                //            enemyBag.Add(enemy1);
+                case 3:
+                    // fill bag with 2 enemy 1s and 2 enemy 2s and 1 enemy 3
+                    for (int i = 0; i < nE; i++)
+                    {
+                        if (i < nE * .2)
+                        {
+                            enemyBag.Add(enemy1);
 
-                //        }
-                //        else if(i < nE * .8)
-                //        {
-                //            enemyBag.Add(enemy2);
+                        }
+                        else 
+                        {
+                            enemyBag.Add(enemy2);
 
-                //        }
-                //        else
-                //        {
-                //            enemyBag.Add(enemy3);
-                //        }
-                //    }
-                //    break;
-                //case 4:
-                //    //fill bag with 3 enemy 3s and 1 enemy 4 and 1 enemy1
-                //    for (int i = 0; i < nE; i++)
-                //    {
-                //        if (i < nE * .2)
-                //        {
-                //            enemyBag.Add(enemy1);
-
-                //        }
-                //        else if (i < nE * .8)
-                //        {
-                //            enemyBag.Add(enemy3);
-
-                //        }
-                //        else
-                //        {
-                //            enemyBag.Add(enemy4);
-                //        }
-                //    }
-                //    break;
+                        }
+                       
+                    }
+                    break;
+                case 0:
+                //fill bag with 3 enemy 3s and 1 enemy 4 and 1 enemy1
+                for (int i = 0; i < nE; i++)
+                {
+                    enemyBag.Add(enemy2);
+                }
+                break;
+                
                 //case 5:
                 //    //fill bag with 4 enemy 4s and 1 enemy 5
                 //    for (int i = 0; i < nE; i++)

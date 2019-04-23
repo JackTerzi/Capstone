@@ -6,10 +6,10 @@ public class EnemyController : MonoBehaviour {
 
     Enemy enemy;
 
-    public GameObject enemyBullet;
+    public GameObject enemyBullet, deathEffect;
 
     SpriteRenderer spr;
-
+    public ParticleSystem ps;
     public Color startColor,
                  flashColor;
 
@@ -19,6 +19,7 @@ public class EnemyController : MonoBehaviour {
 
     public bool canShoot;
 
+    public AudioClip chargeSound, shootSound;
 
     void Start () {   
         enemy  = new Enemy(this.GetComponent<Rigidbody2D>(), 1, 1, canShoot);
@@ -41,7 +42,12 @@ public class EnemyController : MonoBehaviour {
     public IEnumerator Timer(float time){
         WaitForSeconds hi = new WaitForSeconds(time); // Hi!
         spr.color = flashColor;
+        if (Utility.IsDefined(chargeSound))
+            SoundManager.me.Play(chargeSound);
+
         yield return hi;
+        if (Utility.IsDefined(shootSound))
+            SoundManager.me.Play(shootSound);
         GameObject thisBullet = Instantiate(enemyBullet, transform.position, Quaternion.identity);
         thisBullet.transform.right = gameObject.transform.right;
         spr.color = startColor;
@@ -51,6 +57,8 @@ public class EnemyController : MonoBehaviour {
     void Hit(){
         Manager.me.score++;
         Destroy(gameObject);
+        Instantiate(deathEffect, transform.position, Quaternion.Euler(90, 0, 0));
+
     }
 
     private void OnDestroy()
