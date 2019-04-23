@@ -433,7 +433,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &382064215
 GameObject:
@@ -712,50 +712,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 0.05, y: 0.05, z: 2}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &603849283
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 603849285}
-  - component: {fileID: 603849284}
-  m_Layer: 0
-  m_Name: Vulnerable Manager Boi
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &603849284
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 603849283}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9033bed43423f4e10a8aa1a9e93c8a43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spawnTime: 1.5
-  numEnemies: 0
-  timer: 0
-  startedSpawning: 0
---- !u!4 &603849285
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 603849283}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.17433931, y: 4.518777, z: 0.04788702}
-  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -1158,7 +1114,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4349774347678352, guid: 7fca2dc8f19af461c815280260dbdc2e, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.12
+      value: -3
       objectReference: {fileID: 0}
     - target: {fileID: 4349774347678352, guid: 7fca2dc8f19af461c815280260dbdc2e, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1721,6 +1677,26 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1746334508 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1739389333685416, guid: 3aa0dea305eb54f759cdf0825071293e,
+    type: 2}
+  m_PrefabInternal: {fileID: 677628527}
+--- !u!114 &1746334509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1746334508}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dff3c7e9068564283a566dd3018253d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sources: []
+  sourcePrefab: {fileID: 1986034232912998, guid: 4b4df16d4ce3f4e62acc5be80b99082e,
+    type: 2}
+  sourceNum: 64
 --- !u!1 &1758419563
 GameObject:
   m_ObjectHideFlags: 0

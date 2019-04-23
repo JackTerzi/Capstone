@@ -9,7 +9,7 @@ public class SuicideEnemy : MonoBehaviour {
     public float detonateTimer,
     startRunTimer;
 
-
+    public AudioClip explosionSound, runSound;
 
     bool running;
 
@@ -32,7 +32,8 @@ public class SuicideEnemy : MonoBehaviour {
 	void Update () {
         if(startRunTimer <= 0 && !running)
         {
-
+            if (Utility.IsDefined(runSound))
+                SoundManager.me.Play(runSound);
             runSpeed *= 2;
             running = true;
         }
@@ -72,6 +73,8 @@ public class SuicideEnemy : MonoBehaviour {
 
     void Detonate()
     {
+        if (Utility.IsDefined(explosionSound))
+            SoundManager.me.Play(explosionSound);
         Instantiate(explotionEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         Destroy(this.gameObject);
     }

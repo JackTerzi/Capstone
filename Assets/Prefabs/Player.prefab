@@ -314,6 +314,8 @@ MonoBehaviour:
   shotgunOffset: 0.1
   bullet: {fileID: 1406900015031994, guid: a6edc596a6a7e43e5b916128b697b09a, type: 2}
   fire: {fileID: 1425379816474418}
+  deathEffect: {fileID: 1328544208228642, guid: 792e5613ba7e91242a90b275adef9d87,
+    type: 2}
 --- !u!195 &195700080688388492
 NavMeshAgent:
   m_ObjectHideFlags: 1
