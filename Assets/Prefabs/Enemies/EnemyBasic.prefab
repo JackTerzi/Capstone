@@ -101,6 +101,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyBullet: {fileID: 1099632510559916, guid: 39c1e70b6f9da4d3aa7da6f3be3ffc22,
     type: 2}
+  deathEffect: {fileID: 1954507264263488, guid: 185fbfd8f73a9b4468599cc3a7b8ff94,
+    type: 2}
+  ps: {fileID: 0}
   startColor: {r: 0.909804, g: 0.40000004, b: 0.39607847, a: 1}
   flashColor: {r: 0.9528302, g: 0.63372195, b: 0.683806, a: 1}
   chargeSpeed: 0.5

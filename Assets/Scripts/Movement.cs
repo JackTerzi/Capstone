@@ -32,7 +32,8 @@ public class Movement : MonoBehaviour{
 		previousAngle;
 
     public GameObject bullet,
-                      fire;
+                      fire,
+                      deathEffect;
 
 
 	void Start (){
@@ -182,6 +183,7 @@ public class Movement : MonoBehaviour{
 
 
     void OnDestroy(){
+        Instantiate(deathEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         Manager.me.isGameOver = true;
     }
 
