@@ -122,7 +122,12 @@ public class Manager : MonoBehaviour {
             me.level = 1;
             me.LevelText.text = me.level.ToString();
             me.activeEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-            for(int i = 0; i<me.activeEnemies.Length; i++)
+            var tempBullets = GameObject.FindGameObjectsWithTag("Bullet");
+            for( int i = 0; i< tempBullets.Length; i++)
+            {
+                Destroy(tempBullets[i]);
+            }
+            for (int i = 0; i<me.activeEnemies.Length; i++)
             {
                 Destroy(me.activeEnemies[i]);
             }
@@ -132,6 +137,8 @@ public class Manager : MonoBehaviour {
                 enemyBag.Remove(enemyBag[i]);
             }
             player = Instantiate(playerPrefab, playerSpawnPoint.transform);
+            me.numEnemiesOnScreen = 0;
+
             player.transform.eulerAngles = Vector3.zero;
             StartCoroutine(FirstLevel());
             me.isGameOver = false;
@@ -172,6 +179,7 @@ public class Manager : MonoBehaviour {
     private IEnumerator FirstLevel()
     {
         Debug.Log("First Level Ran");
+
         yield return new WaitForSeconds(2);
         textAnimator.Play("LevelCounterReturn");
         yield return new WaitForSeconds(3);

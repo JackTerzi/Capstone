@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class SuicideEnemy : MonoBehaviour {
 
     public float runSpeed;
@@ -9,7 +10,7 @@ public class SuicideEnemy : MonoBehaviour {
     public float detonateTimer,
     startRunTimer;
 
-    public AudioClip explosionSound, runSound;
+    public AudioClip explosionSound, runSound, hurtSound;
 
     bool running;
 
@@ -68,6 +69,13 @@ public class SuicideEnemy : MonoBehaviour {
     void Hit(){
         Destroy(gameObject);
         Instantiate(deathEffect, transform.position, Quaternion.Euler(90, 0, 0));
+        if (Utility.IsDefined(hurtSound))
+        {
+            SoundManager.me.Play(hurtSound);
+        }
+        Manager.me.score++;
+        Manager.me.numEnemiesOnScreen--;
+
 
     }
 
@@ -77,12 +85,12 @@ public class SuicideEnemy : MonoBehaviour {
             SoundManager.me.Play(explosionSound);
         Instantiate(explotionEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         Destroy(this.gameObject);
+        Manager.me.score++;
+        Manager.me.numEnemiesOnScreen--;
     }
 
     void OnDestroy(){ 
-        Manager.me.score++;
-
-        Manager.me.numEnemiesOnScreen--;
+       
     }
 
 }

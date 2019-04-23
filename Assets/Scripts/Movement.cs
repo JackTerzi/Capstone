@@ -35,7 +35,7 @@ public class Movement : MonoBehaviour{
                       fire,
                       deathEffect;
 
-    public AudioClip walkSound, runSound;
+    public AudioClip walkSound, runSound, hurtSound;
 
 	void Start (){
 		rb = GetComponent<Rigidbody2D> ();
@@ -196,6 +196,10 @@ public class Movement : MonoBehaviour{
 
     void OnDestroy(){
         Instantiate(deathEffect, transform.position, Quaternion.Euler(-90, 0, 0));
+        if (Utility.IsDefined(hurtSound))
+        {
+            SoundManager.me.Play(hurtSound);
+        }
         Manager.me.isGameOver = true;
     }
 
