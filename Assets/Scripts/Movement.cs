@@ -35,6 +35,7 @@ public class Movement : MonoBehaviour{
                       fire,
                       deathEffect;
 
+    public AudioClip walkSound, runSound;
 
 	void Start (){
 		rb = GetComponent<Rigidbody2D> ();
@@ -131,11 +132,22 @@ public class Movement : MonoBehaviour{
         }
         else
         {
+            if (Utility.IsDefined(walkSound))
+            {
+                SoundManager.me.Play(walkSound);
+
+            }
             movementAnimator.SetBool("isIdle", false);
         }
 
         if (speed > runAnimSpeed)
         {
+            if (Utility.IsDefined(runSound))
+            {
+                SoundManager.me.Play(runSound);
+
+            }
+
             movementAnimator.SetBool("isRunning", true);
             if (Manager.me.playerShouldDash)
                 fire.SetActive(true);
