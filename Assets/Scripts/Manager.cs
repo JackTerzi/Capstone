@@ -7,38 +7,31 @@ using UnityEngine.SceneManagement;
 public class Manager : MonoBehaviour {
 
     public static Manager me;
-
+    [Header("Game Properties")]
     public GameObject player,
                       playerPrefab,
                       playerSpawnPoint;
-
     public GameObject enemy1, enemy2, enemy3, enemy4, enemy5;
     public List<GameObject> enemyBag;
-
-
     public TextMesh LevelText;
     Animator textAnimator;
-
-
     public GameObject[] activeEnemies;
-
     public int score,
                numEnemiesOnScreen,
                level,
                numEnemies;
-
     public bool isGameOver,
                 playerShouldShoot,
                 playerShouldDash,
                 playerSwiped;
-
     public float spawnTime;
     float logicTimer;
-
     public bool runLevel,
                 runTransition;
 
-
+    [Space(30)]
+    [Header("Main Menu Properties")]
+    public GameObject button1, button2, button3;
 
    //public Scene dash, shoot, dashAndShoot, mainMenu;
 
@@ -53,18 +46,25 @@ public class Manager : MonoBehaviour {
 
 
 	void Start () {
-        me.level = 1;
-        LevelText.text = me.level.ToString();
-        me.isGameOver = false;
-        me.player = GameObject.FindGameObjectWithTag("Player");
-        textAnimator = LevelText.GetComponent<Animator>();
+        if (me.level == 1)
+        {
+            LevelText.text = me.level.ToString();
+            me.isGameOver = false;
+            me.player = GameObject.FindGameObjectWithTag("Player");
+            textAnimator = LevelText.GetComponent<Animator>();
 
 
 
 
-        //first level stuff
-        StartCoroutine(FirstLevel());
-	}
+            //first level stuff
+            StartCoroutine(FirstLevel());
+        }
+        else if (me.level ==0 )
+        {
+            StartCoroutine(MainMenuEntry());
+        }
+
+    }
 	
 
 	void Update () {
@@ -377,5 +377,17 @@ public class Manager : MonoBehaviour {
                 //}
                 //break;
         }
+    }
+
+    public IEnumerator MainMenuEntry()
+    {
+        yield return new WaitForSeconds(2);
+        button1.GetComponent<Animator>().Play("ButtonSlide1");
+        yield return new WaitForSeconds(.3f);
+        button2.GetComponent<Animator>().Play("ButtonSlide1");
+        yield return new WaitForSeconds(.3f);
+        button3.GetComponent<Animator>().Play("ButtonSlide1");
+
+
     }
 }

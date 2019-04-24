@@ -757,44 +757,17 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114631753062540346, guid: 3aa0dea305eb54f759cdf0825071293e,
         type: 2}
-      propertyPath: playerShouldDash
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114631753062540346, guid: 3aa0dea305eb54f759cdf0825071293e,
-        type: 2}
-      propertyPath: playerShouldShoot
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1739389333685416, guid: 3aa0dea305eb54f759cdf0825071293e, type: 2}
-      propertyPath: m_Name
-      value: Invincible Manager Boi
-      objectReference: {fileID: 0}
-    - target: {fileID: 114631753062540346, guid: 3aa0dea305eb54f759cdf0825071293e,
-        type: 2}
-      propertyPath: enemy1
-      value: 
-      objectReference: {fileID: 1399737481222844, guid: d3d54f938cba4415c950e1a51b1282f4,
-        type: 2}
-    - target: {fileID: 114631753062540346, guid: 3aa0dea305eb54f759cdf0825071293e,
-        type: 2}
       propertyPath: playerSpawnPoint
       value: 
       objectReference: {fileID: 232811779}
     - target: {fileID: 114631753062540346, guid: 3aa0dea305eb54f759cdf0825071293e,
         type: 2}
-      propertyPath: enemy2
-      value: 
-      objectReference: {fileID: 1931087851323634, guid: 5ed9bbc74fa504772b4174fc2d476983,
-        type: 2}
-    - target: {fileID: 114631753062540346, guid: 3aa0dea305eb54f759cdf0825071293e,
-        type: 2}
       propertyPath: LevelText
       value: 
       objectReference: {fileID: 499963591}
-    - target: {fileID: 114631753062540346, guid: 3aa0dea305eb54f759cdf0825071293e,
-        type: 2}
-      propertyPath: spawnTime
-      value: 1
+    - target: {fileID: 1739389333685416, guid: 3aa0dea305eb54f759cdf0825071293e, type: 2}
+      propertyPath: m_Name
+      value: Invincible Manager Boi
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3aa0dea305eb54f759cdf0825071293e, type: 2}
@@ -1677,26 +1650,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!1 &1746334508 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1739389333685416, guid: 3aa0dea305eb54f759cdf0825071293e,
-    type: 2}
-  m_PrefabInternal: {fileID: 677628527}
---- !u!114 &1746334509
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1746334508}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dff3c7e9068564283a566dd3018253d7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sources: []
-  sourcePrefab: {fileID: 1986034232912998, guid: 4b4df16d4ce3f4e62acc5be80b99082e,
-    type: 2}
-  sourceNum: 64
 --- !u!1 &1758419563
 GameObject:
   m_ObjectHideFlags: 0
