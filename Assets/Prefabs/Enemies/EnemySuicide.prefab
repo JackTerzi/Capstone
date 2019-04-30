@@ -134,6 +134,9 @@ MonoBehaviour:
   runSpeed: 2
   detonateTimer: 4
   startRunTimer: 2
+  explosionSound: {fileID: 8300000, guid: 7718576e2da577d43b6b12f297430b5b, type: 3}
+  runSound: {fileID: 8300000, guid: 7e893a905f085b5418f62f7678951670, type: 3}
+  hurtSound: {fileID: 8300000, guid: deef302c0681cdf46a158b6979e30bd1, type: 3}
   explotionEffect: {fileID: 1021577473143984, guid: 762fe7bb07f13d04d82f36dea1d462a2,
     type: 2}
   deathEffect: {fileID: 1954507264263488, guid: 185fbfd8f73a9b4468599cc3a7b8ff94,
