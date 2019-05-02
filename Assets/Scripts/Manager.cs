@@ -53,7 +53,7 @@ public class Manager : MonoBehaviour {
             me.player = GameObject.FindGameObjectWithTag("Player");
             textAnimator = LevelText.GetComponent<Animator>();
 
-
+            me.spawnTime = (1.0f / (float)me.level);
 
 
             //first level stuff
@@ -129,6 +129,8 @@ public class Manager : MonoBehaviour {
                 me.runTransition = false;
                 me.score = 0;
                 me.level = 1;
+                me.spawnTime = (1.0f / (float)me.level);
+
                 me.LevelText.text = me.level.ToString();
                 me.activeEnemies = GameObject.FindGameObjectsWithTag("Enemy");
                 var tempBullets = GameObject.FindGameObjectsWithTag("Bullet");
@@ -141,10 +143,11 @@ public class Manager : MonoBehaviour {
                     Destroy(me.activeEnemies[i]);
                 }
                 me.numEnemiesOnScreen = 0;
-                for (int i = 0; i < enemyBag.Count; i++)
+                while(enemyBag.Count>0)
                 {
+                    me.enemyBag.Remove(enemyBag[0]);
+                    me.enemyBag.TrimExcess();
 
-                    enemyBag.Remove(enemyBag[i]);
                 }
                 player = Instantiate(playerPrefab, playerSpawnPoint.transform);
                 me.numEnemiesOnScreen = 0;
@@ -166,16 +169,17 @@ public class Manager : MonoBehaviour {
     }
     private IEnumerator NextLevel()
     {
-        Debug.Log("Next LEvel Ran");
+        Debug.Log("Next Level Ran");
         me.runTransition = false;
 
         me.level += 1;
-       
+        me.spawnTime = (1.0f / (float)me.level);
 
-        me.numEnemiesOnScreen = 0;
 
         textAnimator.Play("LevelCounter");
         yield return new WaitForSeconds(3);
+        me.numEnemiesOnScreen = 0;
+
         LevelText.text = me.level.ToString();
         textAnimator.Play("LevelCounterReturn");
         yield return new WaitForSeconds(3);
@@ -195,6 +199,10 @@ public class Manager : MonoBehaviour {
         yield return new WaitForSeconds(2);
         textAnimator.Play("LevelCounterReturn");
         yield return new WaitForSeconds(3);
+        me.numEnemiesOnScreen = 0;
+        me.score = 0;
+        me.spawnTime = (1.0f / (float)me.level);
+
         numEnemies = Manager.me.level * 2 + 5;
         // number of each enemy should be % based 
 

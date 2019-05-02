@@ -58,7 +58,6 @@ public class EnemyController : MonoBehaviour {
         Manager.me.score++;
         Destroy(gameObject);
         Instantiate(deathEffect, transform.position, Quaternion.Euler(90, 0, 0));
-        Manager.me.numEnemiesOnScreen--;
         if (Utility.IsDefined(hurtSound))
         {
             SoundManager.me.Play(hurtSound);
@@ -68,6 +67,8 @@ public class EnemyController : MonoBehaviour {
 
     private void OnDestroy()
     {
+        Manager.me.numEnemiesOnScreen--;
+
     }
 
 
