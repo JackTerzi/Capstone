@@ -167,6 +167,13 @@ public class Manager : MonoBehaviour {
     public static void LoadLevel(string level){
 
     }
+
+
+
+
+    /// <summary>
+    /// Transitions to the next level. Called after the level end condition is met. 
+    /// </summary>
     private IEnumerator NextLevel()
     {
         Debug.Log("Next Level Ran");
@@ -192,6 +199,10 @@ public class Manager : MonoBehaviour {
         logicTimer = 0;
     }
 
+    /// <summary>
+    /// Called when the first level needs to run. Resets some values and plays the intro cinematic.
+    /// </summary>
+
     private IEnumerator FirstLevel()
     {
         Debug.Log("First Level Ran");
@@ -212,6 +223,11 @@ public class Manager : MonoBehaviour {
        
 
     }
+
+    /// <summary>
+    /// Fills the enemy bag with the right amount of enemies per level. 
+    /// </summary>
+   
     public void BagFiller(int nE)
     {
         switch (Manager.me.level % 4)
@@ -399,6 +415,9 @@ public class Manager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// On the main menu it plays the button entry animation. 
+    /// </summary>
     public IEnumerator MainMenuEntry()
     {
         yield return new WaitForSeconds(2);
@@ -411,7 +430,10 @@ public class Manager : MonoBehaviour {
 
     }
 
-
+    /// <summary>
+    /// Main Menu plays button exit animation and loads next scene
+    /// </summary>
+    /// <returns>The pressed.</returns>
     public IEnumerator ButtonPressed(bool menu)
     {
         button1.GetComponent<Animator>().Play("ButtonSlide2");
@@ -430,7 +452,9 @@ public class Manager : MonoBehaviour {
         }
 
     }
-
+    /// <summary>
+    /// Called from the editor. Starts the game when the start button is pressed. 
+    /// </summary>
     public void StartGameButton()
     {
         StartCoroutine(ButtonPressed(false));
