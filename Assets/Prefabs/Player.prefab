@@ -316,6 +316,9 @@ MonoBehaviour:
   fire: {fileID: 1425379816474418}
   deathEffect: {fileID: 1328544208228642, guid: 792e5613ba7e91242a90b275adef9d87,
     type: 2}
+  walkSound: {fileID: 0}
+  runSound: {fileID: 8300000, guid: 2d4007a479990e44fa05e1e0b7804248, type: 3}
+  hurtSound: {fileID: 8300000, guid: 9e40434b7269854428bde27478250c06, type: 3}
 --- !u!195 &195700080688388492
 NavMeshAgent:
   m_ObjectHideFlags: 1
