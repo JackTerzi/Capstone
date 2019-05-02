@@ -108,7 +108,7 @@ MonoBehaviour:
   flashColor: {r: 0.9528302, g: 0.63372195, b: 0.683806, a: 1}
   chargeSpeed: 0.5
   canShoot: 1
-  chargeSound: {fileID: 8300000, guid: 3d64c6c33a48d67489fd28a84a8a6824, type: 3}
+  chargeSound: {fileID: 8300000, guid: e6e3f9f6582056846bf89f24983d681e, type: 3}
   shootSound: {fileID: 8300000, guid: ba64ffd9f96fa2b42a105c25e949d1a9, type: 3}
   hurtSound: {fileID: 8300000, guid: f9ba2b95447acd641ae4b34f9e1c13c1, type: 3}
 --- !u!212 &212446800188815944
