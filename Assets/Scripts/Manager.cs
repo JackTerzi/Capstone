@@ -19,12 +19,15 @@ public class Manager : MonoBehaviour {
     public int score,
                numEnemiesOnScreen,
                level,
-               numEnemies;
+               numEnemies,
+               multiplier;
     public bool isGameOver,
                 playerShouldShoot,
                 playerShouldDash,
                 playerSwiped;
-    public float spawnTime;
+    public float spawnTime,
+                 multiTime;
+ 
     float logicTimer;
     public bool runLevel,
                 runTransition;
@@ -74,6 +77,14 @@ public class Manager : MonoBehaviour {
         }
         else
         {
+
+            if(multiTime <= 0)
+            {
+                multiplier = 1;
+            }
+           
+
+
             if (player == null)
             {
                 player = GameObject.FindGameObjectWithTag("Player");
@@ -82,8 +93,7 @@ public class Manager : MonoBehaviour {
 
 
 
-
-
+            //Multiplier 
 
 
             //transition between levels

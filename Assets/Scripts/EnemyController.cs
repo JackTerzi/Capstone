@@ -17,23 +17,28 @@ public class EnemyController : MonoBehaviour {
 
     float chargeTimer;
 
-    public bool canShoot;
+    public bool canShoot,
+                canAim;
 
     public AudioClip chargeSound, shootSound, hurtSound;
 
     void Start () {   
         enemy  = new Enemy(this.GetComponent<Rigidbody2D>(), 1, 1, canShoot);
         spr = GetComponent<SpriteRenderer>();
+        canAim = true;
 	
 	}
 
 
     void Update(){
         if (!Manager.me.isGameOver){
-            enemy.Movement();
+            if (canAim)
+            {
+                enemy.Movement();
+            }
             if (enemy.Shoot()){
                 StartCoroutine(Timer(chargeSpeed));
-
+                canAim = false;
             }
         }
     }
@@ -51,11 +56,15 @@ public class EnemyController : MonoBehaviour {
         GameObject thisBullet = Instantiate(enemyBullet, transform.position, Quaternion.identity);
         thisBullet.transform.right = gameObject.transform.right;
         spr.color = startColor;
+        canAim = true;
     }
 
 
     void Hit(){
-        Manager.me.score++;
+        Manager.me.score+= 10* Manager.me.multiplier;
+        Manager.me.multiplier++;
+        Manager.me.multiTime = 3;
+
         Destroy(gameObject);
         Instantiate(deathEffect, transform.position, Quaternion.Euler(90, 0, 0));
         if (Utility.IsDefined(hurtSound))

@@ -73,7 +73,9 @@ public class SuicideEnemy : MonoBehaviour {
         {
             SoundManager.me.Play(hurtSound);
         }
-        Manager.me.score++;
+        Manager.me.score += 10 * Manager.me.multiplier;
+        Manager.me.multiplier++;
+        Manager.me.multiTime = 3;
 
 
     }

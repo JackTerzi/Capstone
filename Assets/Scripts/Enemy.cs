@@ -50,14 +50,14 @@ public class Enemy {
 
     public void Movement(){
         if (player != null){
-            this.enem.transform.right = player.transform.position - this.enem.transform.position;
+            this.enem.transform.right = Vector3.Lerp((player.transform.position - this.enem.transform.position).normalized, this.enem.transform.right  , Time.deltaTime);
         }
     }
 
 
     public bool Shoot(){
         if (canShoot && Time.time > randomShoot){
-            randomShoot = Time.time + Random.Range(1.5f, 4f);
+            randomShoot = Time.time + Random.Range(1f, 3f);
             return true;
         }
 
