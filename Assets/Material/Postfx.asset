@@ -31,19 +31,19 @@ MonoBehaviour:
     value: 1
   intensity:
     overrideState: 1
-    value: 4.49
+    value: 5
   threshold:
     overrideState: 1
-    value: 0.1
+    value: 0.66
   softKnee:
     overrideState: 1
-    value: 0.47
+    value: 0.11
   clamp:
     overrideState: 1
     value: 65472
   diffusion:
     overrideState: 1
-    value: 7
+    value: 5.1
   anamorphicRatio:
     overrideState: 1
     value: 0
@@ -76,12 +76,12 @@ MonoBehaviour:
     overrideState: 1
     value: 1
   spectralLut:
-    overrideState: 0
+    overrideState: 1
     value: {fileID: 0}
     defaultState: 1
   intensity:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 0.42
   fastMode:
-    overrideState: 0
-    value: 0
+    overrideState: 1
+    value: 1
