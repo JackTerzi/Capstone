@@ -73,8 +73,9 @@ public class SuicideEnemy : MonoBehaviour {
         {
             SoundManager.me.Play(hurtSound);
         }
-        Manager.me.score++;
-        Manager.me.numEnemiesOnScreen--;
+        Manager.me.score += 10 * Manager.me.multiplier;
+        Manager.me.multiplier++;
+        Manager.me.multiTime = 3;
 
 
     }
@@ -86,11 +87,11 @@ public class SuicideEnemy : MonoBehaviour {
         Instantiate(explotionEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         Destroy(this.gameObject);
         Manager.me.score++;
-        Manager.me.numEnemiesOnScreen--;
     }
 
-    void OnDestroy(){ 
-       
+    void OnDestroy(){
+        Manager.me.numEnemiesOnScreen--;
+
     }
 
 }
