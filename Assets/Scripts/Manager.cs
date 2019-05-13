@@ -186,7 +186,6 @@ public class Manager : MonoBehaviour {
     /// </summary>
     private IEnumerator NextLevel()
     {
-        Debug.Log("Next Level Ran");
         me.runTransition = false;
 
         me.level += 1;

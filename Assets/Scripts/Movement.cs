@@ -84,6 +84,7 @@ public class Movement : MonoBehaviour{
                     }
                     if (frameCount <10 && (moveDirection.normalized - previousMoveDirection.normalized).magnitude < sameDirCheck && (moveDirection - previousMoveDirection).magnitude > 1) {
     					addVelocity = true;
+                        fire.SetActive(true);
                         previousMoveDirection = moveDirection;
                     }
     				previousAngle = lookAngle;
@@ -99,6 +100,7 @@ public class Movement : MonoBehaviour{
 	void FixedUpdate (){
         if (Manager.me.playerShouldDash){
             float drag;
+           
             if (speed > 1)
                 drag = dragMagnitude * (speed) * Time.fixedDeltaTime;
             else
@@ -149,13 +151,12 @@ public class Movement : MonoBehaviour{
             }
 
             movementAnimator.SetBool("isRunning", true);
-            if (Manager.me.playerShouldDash)
-                fire.SetActive(true);
+
         }
         else if (speed > walkAnimSpeed)
         {
             if(Manager.me.playerShouldDash)
-                fire.SetActive(false);
+
             movementAnimator.SetBool("isRunning", false);
             movementAnimator.SetBool("isWalking", true);
 
@@ -163,7 +164,7 @@ public class Movement : MonoBehaviour{
         else
         {   
             if (Manager.me.playerShouldDash)
-                fire.SetActive(false);
+
             movementAnimator.SetBool("isWalking", false);
             movementAnimator.SetBool("isRunning", false);
             movementAnimator.SetBool("isIdle", true);
@@ -193,15 +194,18 @@ public class Movement : MonoBehaviour{
     
      }
 
-
-    void OnDestroy(){
+    void Hit()
+    {
         Instantiate(deathEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         if (Utility.IsDefined(hurtSound))
         {
             SoundManager.me.Play(hurtSound);
         }
         Manager.me.isGameOver = true;
+        Destroy(gameObject);
     }
+
+
 
     //Vector3 Vector2to3(Vector2 ourVec)
     //{
