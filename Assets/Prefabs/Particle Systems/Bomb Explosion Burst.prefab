@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1021577473143984}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.26748157, y: -1.5841266, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -56,9 +56,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.012041271, y: -202024}
   serializedVersion: 2
-  m_Radius: 0.6
+  m_Radius: 0.58795893
 --- !u!114 &114331299128432788
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -81,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8bbafa0d32d3e4fb0a27300ef933cb03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyTimer: 3
+  destroyTimer: 1
 --- !u!198 &198074687070303310
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -736,7 +736,7 @@ ParticleSystem:
     sphericalDirectionAmount: 0
     randomPositionAmount: 0
     radius:
-      value: 0.7
+      value: 0.35550442
       mode: 0
       spread: 0
       speed:
@@ -4712,7 +4712,7 @@ ParticleSystemRenderer:
   m_RenderMode: 0
   m_SortMode: 0
   m_MinParticleSize: 0
-  m_MaxParticleSize: 0.5
+  m_MaxParticleSize: 0.1
   m_CameraVelocityScale: 0
   m_VelocityScale: 0
   m_LengthScale: 2
