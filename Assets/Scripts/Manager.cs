@@ -11,20 +11,22 @@ public class Manager : MonoBehaviour {
     public GameObject player,
                       playerPrefab,
                       playerSpawnPoint;
-    public GameObject enemy1, enemy2, enemy3, enemy4, enemy5;
+    public GameObject enemy1, enemy2, enemy3, enemy4, enemy5, restartButton;
     public List<GameObject> enemyBag;
-    public TextMesh LevelText;
+    public TextMesh LevelText, scoreText;
     Animator textAnimator;
     public GameObject[] activeEnemies;
     public int score,
                numEnemiesOnScreen,
                level,
                numEnemies,
-               multiplier;
+               multiplier,
+               maxEnemiesOnScreen;
     public bool isGameOver,
                 playerShouldShoot,
                 playerShouldDash,
-                playerSwiped;
+                playerSwiped,
+                restart;
     public float spawnTime,
                  multiTime;
  
@@ -52,11 +54,12 @@ public class Manager : MonoBehaviour {
         if (me.level == 1)
         {
             LevelText.text = me.level.ToString();
+            scoreText.text = me.score.ToString("000000");
             me.isGameOver = false;
             me.player = GameObject.FindGameObjectWithTag("Player");
             textAnimator = LevelText.GetComponent<Animator>();
 
-            me.spawnTime = (1.0f / (float)me.level);
+            me.spawnTime = ((1.0f*2.0f) / ((float)me.level));
 
 
             //first level stuff
@@ -78,7 +81,7 @@ public class Manager : MonoBehaviour {
         else
         {
 
-            if(multiTime <= 0)
+            if (multiTime <= 0)
             {
                 multiplier = 1;
             }
@@ -90,6 +93,7 @@ public class Manager : MonoBehaviour {
                 player = GameObject.FindGameObjectWithTag("Player");
             }
 
+            scoreText.text = me.score.ToString("000000");
 
 
 
@@ -107,7 +111,7 @@ public class Manager : MonoBehaviour {
             if (!me.isGameOver && me.runLevel)
             {
                 logicTimer += Time.deltaTime;
-                if (logicTimer >= spawnTime && me.enemyBag.Count > 0)
+                if (logicTimer >= spawnTime && me.enemyBag.Count > 0 && me.numEnemiesOnScreen < maxEnemiesOnScreen)
                 {
                     int x = (int)Random.Range(0, Manager.me.enemyBag.Count);
 
@@ -134,14 +138,10 @@ public class Manager : MonoBehaviour {
             if (isGameOver)
             {
                 StopAllCoroutines();
-
+                restartButton.SetActive(true);
                 me.runLevel = false;
                 me.runTransition = false;
-                me.score = 0;
-                me.level = 1;
-                me.spawnTime = (1.0f / (float)me.level);
 
-                me.LevelText.text = me.level.ToString();
                 me.activeEnemies = GameObject.FindGameObjectsWithTag("Enemy");
                 var tempBullets = GameObject.FindGameObjectsWithTag("Bullet");
                 for (int i = 0; i < tempBullets.Length; i++)
@@ -159,12 +159,24 @@ public class Manager : MonoBehaviour {
                     me.enemyBag.TrimExcess();
 
                 }
-                player = Instantiate(playerPrefab, playerSpawnPoint.transform);
-                me.numEnemiesOnScreen = 0;
+                if (restart) {
+                    me.score = 0;
+                    me.level = 1;
+                    me.spawnTime = ((1.0f * 2.0f) / ((float)me.level));
 
-                player.transform.eulerAngles = Vector3.zero;
-                StartCoroutine(FirstLevel());
-                me.isGameOver = false;
+                    me.LevelText.text = me.level.ToString();
+                    player = Instantiate(playerPrefab, playerSpawnPoint.transform);
+                    me.numEnemiesOnScreen = 0;
+
+                    player.transform.eulerAngles = Vector3.zero;
+                    StartCoroutine(FirstLevel());
+
+                    me.isGameOver = false;
+                    restartButton.SetActive(false);
+                    restart = false;
+                }
+               
+
 
             }
         }
@@ -172,7 +184,10 @@ public class Manager : MonoBehaviour {
     }
 
 
-
+    public void Restart()
+    {
+        restart = true;
+    }
 
     public static void LoadLevel(string level){
 
@@ -189,8 +204,11 @@ public class Manager : MonoBehaviour {
         me.runTransition = false;
 
         me.level += 1;
-        me.spawnTime = (1.0f / (float)me.level);
-
+        me.spawnTime = ((1.0f * 2.0f) / ((float)me.level));
+        if(maxEnemiesOnScreen < 10)
+        {
+            maxEnemiesOnScreen++;
+        }
 
         textAnimator.Play("LevelCounter");
         yield return new WaitForSeconds(3);
@@ -214,14 +232,13 @@ public class Manager : MonoBehaviour {
 
     private IEnumerator FirstLevel()
     {
-        Debug.Log("First Level Ran");
 
         yield return new WaitForSeconds(2);
         textAnimator.Play("LevelCounterReturn");
         yield return new WaitForSeconds(3);
         me.numEnemiesOnScreen = 0;
         me.score = 0;
-        me.spawnTime = (1.0f / (float)me.level);
+        me.spawnTime = ((1.0f * 2.0f) / ((float)me.level));
 
         numEnemies = Manager.me.level * 2 + 5;
         // number of each enemy should be % based 
