@@ -17,13 +17,13 @@ TagManager:
   - 
   - 
   - Enemies
-  - Enemy Projectiles
+  - EnemyProjectiles
   - 'Player '
-  - Player Projectiles
+  - PlayerProjectiles
   - Walls
   - PlayerFire
   - Bashable
-  - 
+  - FX
   - 
   - 
   - 

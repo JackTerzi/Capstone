@@ -5,64 +5,67 @@ using UnityEngine;
 
 public class SuicideEnemy : MonoBehaviour {
 
-    public float runSpeed;
+    public float playerBuffer, inZone, runSpeed;
 
     public float detonateTimer,
     startRunTimer;
 
     public AudioClip explosionSound, runSound, hurtSound;
 
-    bool running;
+    bool running, arrived, wall;
 
-    Vector2 playerPos;
-
+    Vector2 targetPos;
+    Transform player;
     Rigidbody2D rb;
     Enemy enem;
-    public GameObject explotionEffect, deathEffect;
+    public GameObject explotionEffect, deathEffect, circleBoy;
     public SpriteRenderer glowEffect;
     Color tempColor;
 
-    void Start () {
+    void Start()
+    {
         rb = GetComponent<Rigidbody2D>();
         enem = new Enemy(rb, false);
         tempColor = glowEffect.color;
-        //GetComponent<UnityEngine.AI.NavMeshAgent>().destination = Manager.me.player.transform.position;
-	}
-	
+        if (Utility.IsDefined(Manager.me.player))
+        {
+            player = Manager.me.player.transform;
+            targetPos = (Manager.me.player.transform.position + (player.transform.right.normalized * playerBuffer));
+            //GetComponent<UnityEngine.AI.NavMeshAgent>().destination = Manager.me.player.transform.position;
+        }
+    }
 
 	void Update () {
-        if(startRunTimer <= 0 && !running)
-        {
-            if (Utility.IsDefined(runSound))
-                SoundManager.me.Play(runSound);
-            runSpeed *= 2;
-            running = true;
-        }
-        else
-        {
-            startRunTimer -= Time.deltaTime;
+       
 
-        }
+
+
+
         if (detonateTimer <= 0)
         {
             Detonate();
         }
-        else
-        {
-            detonateTimer -= Time.deltaTime;
-            tempColor.a = 1 - Mathf.Pow(detonateTimer, 2);
-            glowEffect.color = tempColor;
-        }
+       
 
     }
 
 
     void FixedUpdate(){
-        if (Utility.IsDefined(Manager.me.player)){
-            playerPos = Manager.me.player.transform.position;
-            transform.eulerAngles = new Vector3(0f,0f,Geo.ToAng(transform.position, playerPos));
+
+            transform.eulerAngles = new Vector3(0f,0f,Geo.ToAng(transform.position, targetPos));
+        if(((Vector2)transform.position - targetPos).magnitude > inZone && !wall)
+        {
             rb.MovePosition(transform.position + transform.right * runSpeed * Time.fixedDeltaTime);
+            arrived = true;
+
         }
+        else
+        {
+            detonateTimer -= Time.fixedDeltaTime;
+            tempColor.a = 1 - Mathf.Pow(detonateTimer, 2);
+            glowEffect.color = tempColor;
+        }
+
     }
 
 
@@ -73,8 +76,9 @@ public class SuicideEnemy : MonoBehaviour {
         {
             SoundManager.me.Play(hurtSound);
         }
-        Manager.me.score++;
-        Manager.me.numEnemiesOnScreen--;
+        Manager.me.score += 10 * Manager.me.multiplier;
+        Manager.me.multiplier++;
+        Manager.me.multiTime = 3;
 
 
     }
@@ -86,11 +90,19 @@ public class SuicideEnemy : MonoBehaviour {
         Instantiate(explotionEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         Destroy(this.gameObject);
         Manager.me.score++;
-        Manager.me.numEnemiesOnScreen--;
     }
 
-    void OnDestroy(){ 
-       
+    void OnDestroy(){
+        Manager.me.numEnemiesOnScreen--;
+
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.layer == LayerMask.NameToLayer("Walls"))
+        {
+            wall = true;
+        }
     }
 
 }

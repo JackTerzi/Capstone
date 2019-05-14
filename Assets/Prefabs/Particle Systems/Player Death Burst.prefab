@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4125744072850304}
   - component: {fileID: 198430752784248662}
   - component: {fileID: 199572446326415876}
+  - component: {fileID: 114956831280345090}
   m_Layer: 0
   m_Name: Player Death Burst
   m_TagString: Untagged
@@ -41,6 +42,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
+--- !u!114 &114956831280345090
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1328544208228642}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bbafa0d32d3e4fb0a27300ef933cb03, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  destroyTimer: 5
 --- !u!198 &198430752784248662
 ParticleSystem:
   m_ObjectHideFlags: 1
