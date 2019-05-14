@@ -155,7 +155,6 @@ public class Movement : MonoBehaviour{
         }
         else if (speed > walkAnimSpeed)
         {
-            if(Manager.me.playerShouldDash)
 
             movementAnimator.SetBool("isRunning", false);
             movementAnimator.SetBool("isWalking", true);
@@ -163,7 +162,6 @@ public class Movement : MonoBehaviour{
         }
         else
         {   
-            if (Manager.me.playerShouldDash)
 
             movementAnimator.SetBool("isWalking", false);
             movementAnimator.SetBool("isRunning", false);

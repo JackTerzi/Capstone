@@ -71,11 +71,12 @@ MonoBehaviour:
   playerPrefab: {fileID: 1230577482628158, guid: 7fca2dc8f19af461c815280260dbdc2e,
     type: 2}
   playerSpawnPoint: {fileID: 0}
-  enemy1: {fileID: 1399737481222844, guid: d3d54f938cba4415c950e1a51b1282f4, type: 2}
+  enemy1: {fileID: 1399737481222844, guid: ee32b093fa6814200b471726600910ab, type: 2}
   enemy2: {fileID: 1931087851323634, guid: 5ed9bbc74fa504772b4174fc2d476983, type: 2}
   enemy3: {fileID: 0}
   enemy4: {fileID: 0}
   enemy5: {fileID: 0}
+  restartButton: {fileID: 0}
   enemyBag: []
   LevelText: {fileID: 0}
   activeEnemies: []
@@ -83,11 +84,15 @@ MonoBehaviour:
   numEnemiesOnScreen: 0
   level: 1
   numEnemies: 0
+  multiplier: 0
+  maxEnemiesOnScreen: 3
   isGameOver: 0
   playerShouldShoot: 0
   playerShouldDash: 1
   playerSwiped: 0
+  restart: 0
   spawnTime: 1
+  multiTime: 0
   runLevel: 0
   runTransition: 0
   button1: {fileID: 0}
