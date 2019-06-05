@@ -49,29 +49,7 @@ public class ShootEnemy : MonoBehaviour {
     {
         if (Manager.me.player != null)
         {
-            if ((Manager.me.player.transform.position - transform.position).magnitude < minDistanceToPlayer)
-            {
-                trueIsTowards = false;
-                speed = startSpeed;
-                rb.MovePosition(transform.position + ((transform.position - Manager.me.player.transform.position).normalized * speed * Time.fixedDeltaTime));
-            }
-            else if (!trueIsTowards && speed > 0)
-            {
-                rb.MovePosition(transform.position + ((transform.position - Manager.me.player.transform.position).normalized * speed * Time.fixedDeltaTime));
-                speed -= drag;
-            }
-            if ((Manager.me.player.transform.position - transform.position).magnitude > maxDistanceToPlayer){
-                trueIsTowards = true; 
-                speed = startSpeed;
-                rb.MovePosition(transform.position + ((-transform.position + Manager.me.player.transform.position).normalized *2* speed * Time.fixedDeltaTime));
-
-            }
-            else if (trueIsTowards && speed > 0)
-            {
-
-                rb.MovePosition(transform.position + ((-transform.position + Manager.me.player.transform.position).normalized * speed * Time.fixedDeltaTime));
-                speed -= drag;
-            }
+            MoveTowardsPlayer();
         }
     }
 
@@ -99,10 +77,13 @@ public class ShootEnemy : MonoBehaviour {
     {
         Manager.me.score += 10 * Manager.me.multiplier;
         Manager.me.multiplier++;
-        Manager.me.multiTime = 3;
+        Manager.me.multiTime = 4f;
+        Manager.me.activeEnemies.Remove(gameObject);
 
         Destroy(gameObject);
         Instantiate(deathEffect, transform.position, Quaternion.Euler(90, 0, 0));
+        TextMesh multi = Instantiate(Manager.me.MultiText, transform.position, Quaternion.identity);
+        multi.text = "X" + Manager.me.multiplier;
         if (Utility.IsDefined(hurtSound))
         {
             SoundManager.me.Play(hurtSound);
@@ -112,5 +93,33 @@ public class ShootEnemy : MonoBehaviour {
     void OnDestroy()
     {
         Manager.me.numEnemiesOnScreen--;
+    }
+
+  public void MoveTowardsPlayer()
+    {
+        if ((Manager.me.player.transform.position - transform.position).magnitude < minDistanceToPlayer)
+        {
+            trueIsTowards = false;
+            speed = startSpeed;
+            rb.MovePosition(transform.position + ((transform.position - Manager.me.player.transform.position).normalized * speed * Time.fixedDeltaTime));
+        }
+        else if (!trueIsTowards && speed > 0)
+        {
+            rb.MovePosition(transform.position + ((transform.position - Manager.me.player.transform.position).normalized * speed * Time.fixedDeltaTime));
+            speed -= drag;
+        }
+        if ((Manager.me.player.transform.position - transform.position).magnitude > maxDistanceToPlayer)
+        {
+            trueIsTowards = true;
+            speed = startSpeed;
+            rb.MovePosition(transform.position + ((-transform.position + Manager.me.player.transform.position).normalized * 2 * speed * Time.fixedDeltaTime));
+
+        }
+        else if (trueIsTowards && speed > 0)
+        {
+
+            rb.MovePosition(transform.position + ((-transform.position + Manager.me.player.transform.position).normalized * speed * Time.fixedDeltaTime));
+            speed -= drag;
+        }
     }
 }

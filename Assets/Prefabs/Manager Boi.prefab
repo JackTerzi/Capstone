@@ -79,6 +79,8 @@ MonoBehaviour:
   restartButton: {fileID: 0}
   enemyBag: []
   LevelText: {fileID: 0}
+  scoreText: {fileID: 0}
+  livesText: {fileID: 0}
   activeEnemies: []
   score: 0
   numEnemiesOnScreen: 0
@@ -86,6 +88,7 @@ MonoBehaviour:
   numEnemies: 0
   multiplier: 0
   maxEnemiesOnScreen: 3
+  lives: 0
   isGameOver: 0
   playerShouldShoot: 0
   playerShouldDash: 1

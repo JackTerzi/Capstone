@@ -3,30 +3,32 @@ using System.Collections.Generic;
 using UnityEngine;
 //using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Manager : MonoBehaviour {
 
     public static Manager me;
     [Header("Game Properties")]
-    public GameObject player,
-                      playerPrefab,
+    public GameObject player;
+    public GameObject playerPrefab,
                       playerSpawnPoint;
     public GameObject enemy1, enemy2, enemy3, enemy4, enemy5, restartButton;
-    public List<GameObject> enemyBag;
-    public TextMesh LevelText, scoreText;
+    public List<GameObject> enemyBag, activeEnemies;
+    public TextMesh LevelText, scoreText, livesText, MultiText;
     Animator textAnimator;
-    public GameObject[] activeEnemies;
     public int score,
                numEnemiesOnScreen,
                level,
                numEnemies,
                multiplier,
-               maxEnemiesOnScreen;
+               maxEnemiesOnScreen,
+               lives;
     public bool isGameOver,
                 playerShouldShoot,
                 playerShouldDash,
                 playerSwiped,
-                restart;
+                restart,
+                spawnEnemies;
     public float spawnTime,
                  multiTime;
  
@@ -34,9 +36,12 @@ public class Manager : MonoBehaviour {
     public bool runLevel,
                 runTransition;
 
+    public Slider MultiSlider;
+
     [Space(30)]
     [Header("Main Menu Properties")]
-    public GameObject button1, button2, button3;
+    public GameObject button1;
+    public GameObject button2, button3;
 
    //public Scene dash, shoot, dashAndShoot, mainMenu;
 
@@ -80,12 +85,20 @@ public class Manager : MonoBehaviour {
         }
         else
         {
+            livesText.text = Manager.me.lives.ToString();
 
             if (multiTime <= 0)
             {
                 multiplier = 1;
+
             }
-           
+            else
+            {
+                MultiSlider.value = multiTime / 4f;
+                multiTime -= Time.deltaTime;
+
+            }
+
 
 
             if (player == null)
@@ -106,29 +119,33 @@ public class Manager : MonoBehaviour {
                 StartCoroutine(NextLevel());
             }
 
-
-            //level logic
-            if (!me.isGameOver && me.runLevel)
+            if (spawnEnemies)
             {
-                logicTimer += Time.deltaTime;
-                if (logicTimer >= spawnTime && me.enemyBag.Count > 0 && me.numEnemiesOnScreen < maxEnemiesOnScreen)
+                //level logic
+                if (!me.isGameOver && me.runLevel)
                 {
-                    int x = (int)Random.Range(0, Manager.me.enemyBag.Count);
+                    logicTimer += Time.deltaTime;
+                    if (logicTimer >= spawnTime && me.enemyBag.Count > 0 && me.numEnemiesOnScreen < maxEnemiesOnScreen)
+                    {
+                        int x = (int)Random.Range(0, Manager.me.enemyBag.Count);
 
-                    Instantiate(Manager.me.enemyBag[x], new Vector3(Random.Range(Camera.main.ViewportToWorldPoint(Vector3.zero).x, Camera.main.ViewportToWorldPoint(Vector3.one).x), Random.Range(Camera.main.ViewportToWorldPoint(Vector3.zero).y, Camera.main.ViewportToWorldPoint(Vector3.one).y)), Quaternion.identity);
-                    me.numEnemiesOnScreen += 1;
-                    me.enemyBag.Remove(Manager.me.enemyBag[x]);
-                    me.enemyBag.TrimExcess();
-                    logicTimer = 0;
-                }
+                        var tempEnem = Instantiate(Manager.me.enemyBag[x], new Vector3(Random.Range(Camera.main.ViewportToWorldPoint(Vector3.zero).x, Camera.main.ViewportToWorldPoint(Vector3.one).x), Random.Range(Camera.main.ViewportToWorldPoint(Vector3.zero).y, 5f)), Quaternion.identity);
+                        me.activeEnemies.Add(tempEnem);
+                        me.numEnemiesOnScreen += 1;
+                        me.enemyBag.Remove(Manager.me.enemyBag[x]);
+                        me.enemyBag.TrimExcess();
+                        logicTimer = 0;
+                    }
 
-                if (me.enemyBag.Count <= 0 && me.numEnemiesOnScreen <= 0)
-                {
-                    //stop logic and move to next level
-                    me.runLevel = false;
-                    me.runTransition = true;
+                    if (me.enemyBag.Count <= 0 && me.numEnemiesOnScreen <= 0)
+                    {
+                        //stop logic and move to next level
+                        me.runLevel = false;
+                        me.runTransition = true;
+                    }
                 }
             }
+           
 
 
 
@@ -142,23 +159,8 @@ public class Manager : MonoBehaviour {
                 me.runLevel = false;
                 me.runTransition = false;
 
-                me.activeEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-                var tempBullets = GameObject.FindGameObjectsWithTag("Bullet");
-                for (int i = 0; i < tempBullets.Length; i++)
-                {
-                    Destroy(tempBullets[i]);
-                }
-                for (int i = 0; i < me.activeEnemies.Length; i++)
-                {
-                    Destroy(me.activeEnemies[i]);
-                }
-                me.numEnemiesOnScreen = 0;
-                while(enemyBag.Count>0)
-                {
-                    me.enemyBag.Remove(enemyBag[0]);
-                    me.enemyBag.TrimExcess();
+                DestroyAllEnemies();
 
-                }
                 if (restart) {
                     me.score = 0;
                     me.level = 1;
@@ -167,10 +169,10 @@ public class Manager : MonoBehaviour {
                     me.LevelText.text = me.level.ToString();
                     player = Instantiate(playerPrefab, playerSpawnPoint.transform);
                     me.numEnemiesOnScreen = 0;
+                    me.lives = 3;
 
                     player.transform.eulerAngles = Vector3.zero;
                     StartCoroutine(FirstLevel());
-
                     me.isGameOver = false;
                     restartButton.SetActive(false);
                     restart = false;
@@ -211,10 +213,11 @@ public class Manager : MonoBehaviour {
         }
 
         textAnimator.Play("LevelCounter");
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(1.5f);
+        LevelText.text = me.level.ToString();
+        yield return new WaitForSeconds(1.5f);
         me.numEnemiesOnScreen = 0;
 
-        LevelText.text = me.level.ToString();
         textAnimator.Play("LevelCounterReturn");
         yield return new WaitForSeconds(3);
         // calculate number of enemies based on the level
@@ -484,5 +487,27 @@ public class Manager : MonoBehaviour {
     public void StartGameButton()
     {
         StartCoroutine(ButtonPressed(false));
+    }
+
+
+    public void DestroyAllEnemies()
+    {
+        var tempBullets = GameObject.FindGameObjectsWithTag("Bullet");
+        for (int i = 0; i < tempBullets.Length; i++)
+        {
+            Destroy(tempBullets[i]);
+        }
+        for (int i = 0; i < me.activeEnemies.Count; i++)
+        {
+            Destroy(me.activeEnemies[i]);
+        }
+        me.numEnemiesOnScreen = 0;
+        while (enemyBag.Count > 0)
+        {
+            me.enemyBag.Remove(enemyBag[0]);
+            me.enemyBag.TrimExcess();
+
+        }
+        me.activeEnemies.Clear();
     }
 }

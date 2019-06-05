@@ -5,17 +5,45 @@ using UnityEngine;
 public class DestroySelfAfter : MonoBehaviour {
     float timer;
     public float destroyTimer;
+    public bool fadeOut, isText, isSprite;
+    SpriteRenderer spr;
+    TextMesh tm;
 	// Use this for initialization
 	void Start () {
-        timer = 0;
+        if (isText)
+        {
+            tm = GetComponent<TextMesh>();
+        }else if (isSprite)
+        {
+            spr = GetComponent<SpriteRenderer>();
+
+        }
+        timer = destroyTimer;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-        timer += Time.deltaTime;
-        if(timer >= destroyTimer)
+        destroyTimer -= Time.deltaTime;
+
+        if (fadeOut)
         {
-            Destroy(gameObject);
+            if (isText)
+            {
+                tm.color = new Color(tm.color.r, tm.color.g, tm.color.b, destroyTimer / timer);
+
+            }else if (isSprite)
+            {
+                spr.color = new Color(spr.color.r, spr.color.g, spr.color.b, destroyTimer / timer);
+
+            }
         }
+        else
+        {
+            if (destroyTimer <= 0)
+            {
+                Destroy(gameObject);
+            }
+        }
+
     }
 }

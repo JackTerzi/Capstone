@@ -78,7 +78,10 @@ public class SuicideEnemy : MonoBehaviour {
         }
         Manager.me.score += 10 * Manager.me.multiplier;
         Manager.me.multiplier++;
-        Manager.me.multiTime = 3;
+        Manager.me.multiTime = 4f;
+        Manager.me.numEnemiesOnScreen--;
+        Manager.me.activeEnemies.Remove(gameObject);
+
 
 
     }
@@ -90,10 +93,12 @@ public class SuicideEnemy : MonoBehaviour {
         Instantiate(explotionEffect, transform.position, Quaternion.Euler(-90, 0, 0));
         Destroy(this.gameObject);
         Manager.me.score++;
+        Manager.me.numEnemiesOnScreen--;
+        Manager.me.activeEnemies.Remove(gameObject);
+
     }
 
     void OnDestroy(){
-        Manager.me.numEnemiesOnScreen--;
 
     }
 

@@ -199,8 +199,19 @@ public class Movement : MonoBehaviour{
         {
             SoundManager.me.Play(hurtSound);
         }
-        Manager.me.isGameOver = true;
-        Destroy(gameObject);
+        Manager.me.lives--;
+        if(Manager.me.lives <= 0)
+        {
+            Manager.me.isGameOver = true;
+            Destroy(gameObject);
+
+        }
+        else
+        {
+            Manager.me.DestroyAllEnemies();
+            Destroy(gameObject);
+            Instantiate(Manager.me.playerPrefab);
+        }
     }
 
 
